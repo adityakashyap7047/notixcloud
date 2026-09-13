@@ -7,7 +7,6 @@ WORKDIR /app
 
 COPY package.json package-lock.json* ./
 RUN npm ci --legacy-peer-deps || npm install --legacy-peer-deps
-RUN npm audit fix --legacy-peer-deps || true
 
 # Rebuild the source code only when needed
 FROM base AS builder
