@@ -88,6 +88,10 @@ app.prepare().then(() => {
 
     socket.on("subscribe:console", async (containerId: string) => {
       if (!containerId || typeof containerId !== "string") return;
+      if (!docker) {
+        socket.emit("console:error", { containerId, error: "Docker not available" });
+        return;
+      }
 
       console.log(`[Socket.IO] Subscribing to console: ${containerId}`);
       const room = `console:${containerId}`;
@@ -166,6 +170,11 @@ app.prepare().then(() => {
           containerId: data.containerId,
           error: "Command blocked by security policy",
         });
+        return;
+      }
+
+      if (!docker) {
+        socket.emit("console:error", { containerId: data.containerId, error: "Docker not available" });
         return;
       }
 
