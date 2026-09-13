@@ -296,6 +296,24 @@ body {
   border-radius: 16px;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-professional::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #2563eb, #06b6d4);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.card-professional:hover::before {
+  opacity: 1;
 }
 
 .card-professional:hover {
@@ -973,6 +991,11 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @keyframes scaleIn {
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
@@ -1033,12 +1056,10 @@ body {
 
 /* ===================== ADDITIONAL TRENDY ANIMATIONS ===================== */
 
-/* Magnetic hover effect */
 .magnetic-hover {
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Card tilt on hover */
 .tilt-card {
   transform-style: preserve-3d;
   perspective: 1000px;
@@ -1048,7 +1069,6 @@ body {
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Smooth reveal from bottom */
 @keyframes reveal-up {
   from {
     opacity: 0;
@@ -1064,7 +1084,6 @@ body {
   animation: reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Glow ring animation */
 @keyframes glow-ring {
   0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
   70% { box-shadow: 0 0 0 15px rgba(37, 99, 235, 0); }
@@ -1075,7 +1094,6 @@ body {
   animation: glow-ring 2s ease-in-out infinite;
 }
 
-/* Text reveal mask */
 @keyframes text-reveal {
   from { clip-path: inset(0 100% 0 0); }
   to { clip-path: inset(0 0% 0 0); }
@@ -1085,7 +1103,6 @@ body {
   animation: text-reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Bounce in */
 @keyframes bounce-in {
   0% { opacity: 0; transform: scale(0.3); }
   50% { transform: scale(1.05); }
@@ -1097,19 +1114,16 @@ body {
   animation: bounce-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Slide in from left */
 @keyframes slide-in-left {
   from { opacity: 0; transform: translateX(-100px); }
   to { opacity: 1; transform: translateX(0); }
 }
 
-/* Slide in from right */
 @keyframes slide-in-right {
   from { opacity: 0; transform: translateX(100px); }
   to { opacity: 1; transform: translateX(0); }
 }
 
-/* Pop in */
 @keyframes pop-in {
   0% { opacity: 0; transform: scale(0.5) translateY(20px); }
   70% { transform: scale(1.02) translateY(-2px); }
@@ -1120,7 +1134,6 @@ body {
   animation: pop-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Gradient border animation */
 @keyframes border-rotate {
   0% { --angle: 0deg; }
   100% { --angle: 360deg; }
@@ -1143,7 +1156,6 @@ body {
   animation: border-rotate 4s linear infinite;
 }
 
-/* Scroll progress bar */
 .scroll-progress {
   position: fixed;
   top: 0;
@@ -1154,7 +1166,6 @@ body {
   transition: width 0.1s linear;
 }
 
-/* Hero background grid overlay */
 .hero-grid {
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
@@ -1162,14 +1173,12 @@ body {
   background-size: 80px 80px;
 }
 
-/* Animated gradient background for dark sections */
 .animated-gradient-bg {
   background: linear-gradient(-45deg, #09090b, #172554, #0c0a09, #1e1b4b, #09090b);
   background-size: 400% 400%;
   animation: aurora 20s ease infinite;
 }
 
-/* Floating shape animations */
 @keyframes float-shape-1 {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
   25% { transform: translate(30px, -50px) rotate(90deg); }
@@ -1191,13 +1200,11 @@ body {
   animation: float-shape-2 25s ease-in-out infinite;
 }
 
-/* Typewriter effect */
 @keyframes typewriter {
   from { width: 0; }
   to { width: 100%; }
 }
 
-/* Smooth section transition */
 .section-fade {
   position: relative;
 }
@@ -1214,7 +1221,6 @@ body {
   pointer-events: none;
 }
 
-/* Feature card icon glow */
 .feature-icon-glow {
   position: relative;
 }
@@ -1237,39 +1243,6 @@ body {
 
 /* ===================== UPGRADED SECTION STYLES ===================== */
 
-/* Smooth card hover with gradient reveal */
-.card-professional {
-  position: relative;
-  overflow: hidden;
-}
-
-.card-professional::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #2563eb, #06b6d4);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.card-professional:hover::before {
-  opacity: 1;
-}
-
-/* Step connector line animation */
-@keyframes step-pulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.8; }
-}
-
-.step-connector {
-  animation: step-pulse 3s ease-in-out infinite;
-}
-
-/* Testimonial card shimmer on hover */
 .card-professional::after {
   content: "";
   position: absolute;
@@ -1292,7 +1265,15 @@ body {
   transform: rotate(45deg) translateY(-100%);
 }
 
-/* Footer newsletter glow */
+@keyframes step-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+.step-connector {
+  animation: step-pulse 3s ease-in-out infinite;
+}
+
 .footer-newsletter-glow {
   position: relative;
 }
@@ -1313,7 +1294,6 @@ body {
   opacity: 1;
 }
 
-/* Hero word cycling underline */
 .hero-underline {
   position: relative;
   display: inline-block;
@@ -1331,18 +1311,6 @@ body {
   animation: line-draw 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Smooth section transitions */
-section {
-  position: relative;
-}
-
-/* FAQ accordion smooth open */
-.faq-answer {
-  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  overflow: hidden;
-}
-
-/* Testimonial star pulse */
 @keyframes star-glow {
   0%, 100% { filter: drop-shadow(0 0 0 transparent); }
   50% { filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.4)); }
@@ -1352,32 +1320,16 @@ section {
   animation: star-glow 2s ease-in-out infinite;
 }
 
-/* Better scroll snap for sections */
 @media (min-width: 768px) {
   .stagger-children.visible > * {
     transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
-/* Card inner glow on hover */
-.card-professional:hover {
-  box-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.06),
-    0 0 0 1px rgba(37, 99, 235, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-}
-
-/* Smooth nav transition */
-nav {
-  transition: background-color 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease;
-}
-
-/* Gradient text animation speed control */
 .gradient-text, .gradient-text-white, .gradient-text-blue {
   animation-duration: 6s;
 }
 
-/* Button shine effect */
 .btn-primary {
   position: relative;
   overflow: hidden;
@@ -1405,7 +1357,6 @@ nav {
   left: 120%;
 }
 
-/* Pulse ring for live indicators */
 @keyframes pulse-ring {
   0% { transform: scale(1); opacity: 1; }
   100% { transform: scale(2.5); opacity: 0; }
@@ -1420,7 +1371,6 @@ nav {
   animation: pulse-ring 2s ease-out infinite;
 }
 
-/* Floating badge animation */
 @keyframes float-badge {
   0%, 100% { transform: translateY(0) rotate(0deg); }
   25% { transform: translateY(-3px) rotate(1deg); }
@@ -1430,3 +1380,109 @@ nav {
 .animate-float-badge {
   animation: float-badge 4s ease-in-out infinite;
 }
+
+/* ===================== TERMINAL / CONSOLE STYLES ===================== */
+
+/* Dark terminal scrollbar */
+.terminal-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-scroll::-webkit-scrollbar-track {
+  background: #0d1117;
+}
+
+.terminal-scroll::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 4px;
+}
+
+.terminal-scroll::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
+}
+
+/* Terminal text selection */
+.terminal-scroll ::selection {
+  background: rgba(56, 139, 253, 0.3);
+  color: white;
+}
+
+/* Console line hover */
+.console-line {
+  transition: background-color 0.1s ease;
+}
+
+.console-line:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Console input focus glow */
+.console-input:focus {
+  box-shadow: inset 0 0 0 1px rgba(56, 139, 253, 0.3);
+}
+
+/* Terminal cursor blink */
+@keyframes terminal-cursor {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.terminal-cursor::after {
+  animation: terminal-cursor 1s step-end infinite;
+  color: #3fb950;
+  font-weight: normal;
+}
+
+/* Status bar pulse */
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.status-pulse {
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+/* Server card dark theme */
+.server-card-dark {
+  background: #0d1117;
+  border: 1px solid #21262d;
+  transition: all 0.2s ease;
+}
+
+.server-card-dark:hover {
+  border-color: #30363d;
+  background: #161b22;
+}
+
+/* Sidebar stat card hover */
+.stat-card:hover {
+  border-color: #30363d;
+  transform: translateY(-1px);
+}
+
+/* Tab active indicator */
+.tab-active-indicator {
+  position: relative;
+}
+
+.tab-active-indicator::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #2563eb, #06b6d4);
+  border-radius: 1px 1px 0 0;
+}
+
+/* Minecraft-themed ASCII art colors */
+.ascii-green { color: #3fb950; }
+.ascii-gold { color: #f0b232; }
+.ascii-red { color: #f85149; }
+.ascii-blue { color: #58a6ff; }
+.ascii-purple { color: #bc8cff; }
+.ascii-cyan { color: #39d2c0; }
+.ascii-white { color: #e6edf3; }
+.ascii-gray { color: #7d8590; }

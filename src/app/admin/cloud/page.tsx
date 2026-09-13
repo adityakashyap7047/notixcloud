@@ -386,7 +386,7 @@ export default function AdminCloudPage() {
                     <br />
                     1. Go to cloud.oracle.com → Profile → API Keys
                     <br />
-                    2. Click "Add API Key"
+                    2. Click &quot;Add API Key&quot;
                     <br />
                     3. Download the private key file
                     <br />

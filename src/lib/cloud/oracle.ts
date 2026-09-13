@@ -238,7 +238,7 @@ export class OracleCloudClient {
   }
 
   async setupNetwork(): Promise<{ subnetId: string; vcnId: string }> {
-    let vcns = await this.listVCNs();
+    const vcns = await this.listVCNs();
     let vcnId: string;
 
     if (vcns.length === 0) {
@@ -248,7 +248,7 @@ export class OracleCloudClient {
       vcnId = vcns[0].id;
     }
 
-    let subnets = await this.listSubnets(vcnId);
+    const subnets = await this.listSubnets(vcnId);
     let subnetId: string;
 
     if (subnets.length === 0) {
