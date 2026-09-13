@@ -625,14 +625,69 @@ function ServerCalculator() {
 /* ======================== PAYMENT METHODS ======================== */
 
 function PaymentMethods() {
+  const UPILogo = () => (
+    <svg viewBox="0 0 120 40" className="w-16 h-8" fill="none">
+      <text x="5" y="28" fontFamily="Arial Black, Arial, sans-serif" fontWeight="900" fontSize="22" fill="#00BAF2">UPI</text>
+      <text x="58" y="16" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="6" fill="#999">UNIFIED</text>
+      <text x="58" y="23" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="6" fill="#999">PAYMENTS</text>
+      <text x="58" y="30" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="6" fill="#999">INTERFACE</text>
+    </svg>
+  );
+
+  const PhonePeLogo = () => (
+    <svg viewBox="0 0 120 36" className="w-20 h-8" fill="none">
+      <circle cx="16" cy="18" r="14" fill="#5F259F"/>
+      <text x="10" y="23" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="14" fill="white">P</text>
+      <text x="34" y="24" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="15" fill="#5F259F">Phone</text>
+      <text x="88" y="24" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="15" fill="#5F259F">Pe</text>
+    </svg>
+  );
+
+  const GPayLogo = () => (
+    <svg viewBox="0 0 120 40" className="w-20 h-8" fill="none">
+      <text x="2" y="30" fontFamily="Arial, sans-serif" fontWeight="400" fontSize="18" fill="#5F6368">G</text>
+      <text x="20" y="30" fontFamily="Arial, sans-serif" fontWeight="500" fontSize="18" fill="#5F6368">Pay</text>
+    </svg>
+  );
+
+  const EsewaLogo = () => (
+    <svg viewBox="0 0 120 36" className="w-20 h-8" fill="none">
+      <rect x="0" y="4" width="28" height="28" rx="6" fill="#60BB46"/>
+      <text x="5" y="24" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="16" fill="white">e</text>
+      <text x="34" y="26" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="17" fill="#60BB46">Sewa</text>
+    </svg>
+  );
+
+  const KhaltiLogo = () => (
+    <svg viewBox="0 0 120 36" className="w-20 h-8" fill="none">
+      <text x="2" y="26" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="18" fill="#E4287C">khalti</text>
+    </svg>
+  );
+
+  const FonePayLogo = () => (
+    <svg viewBox="0 0 130 36" className="w-20 h-8" fill="none">
+      <text x="2" y="26" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="16" fill="#E4287C">fone</text>
+      <text x="52" y="26" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="16" fill="#333">pay</text>
+    </svg>
+  );
+
+  const BankLogo = () => (
+    <svg viewBox="0 0 120 40" className="w-16 h-8" fill="none">
+      <rect x="35" y="4" width="50" height="32" rx="4" fill="none" stroke="#F59E0B" strokeWidth="1.5"/>
+      <text x="40" y="18" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="7" fill="#F59E0B">NEPAL</text>
+      <text x="40" y="26" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="7" fill="#F59E0B">BANK</text>
+      <text x="40" y="33" fontFamily="Arial, sans-serif" fontWeight="500" fontSize="5" fill="#F59E0B">LIMITED</text>
+    </svg>
+  );
+
   const methods = [
-    { name: "UPI", icon: <Smartphone className="w-5 h-5" />, color: "text-sky-400", bg: "bg-sky-500/10" },
-    { name: "PhonePe", icon: <Smartphone className="w-5 h-5" />, color: "text-violet-400", bg: "bg-violet-500/10" },
-    { name: "GPay", icon: <CreditCard className="w-5 h-5" />, color: "text-emerald-400", bg: "bg-emerald-500/10" },
-    { name: "Esewa", icon: <Wallet className="w-5 h-5" />, color: "text-green-400", bg: "bg-green-500/10" },
-    { name: "Khalti", icon: <Wallet className="w-5 h-5" />, color: "text-purple-400", bg: "bg-purple-500/10" },
-    { name: "FonePay", icon: <CreditCard className="w-5 h-5" />, color: "text-blue-400", bg: "bg-blue-500/10" },
-    { name: "Bank Transfer", icon: <Landmark className="w-5 h-5" />, color: "text-amber-400", bg: "bg-amber-500/10" },
+    { name: "UPI", logo: <UPILogo /> },
+    { name: "PhonePe", logo: <PhonePeLogo /> },
+    { name: "GPay", logo: <GPayLogo /> },
+    { name: "Esewa", logo: <EsewaLogo /> },
+    { name: "Khalti", logo: <KhaltiLogo /> },
+    { name: "FonePay", logo: <FonePayLogo /> },
+    { name: "Bank Transfer", logo: <BankLogo /> },
   ];
 
   return (
@@ -642,16 +697,14 @@ function PaymentMethods() {
         <p className="text-lg text-white/50 mb-10">We accept all Indian &amp; Nepali payment methods</p>
         <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-4">
           {methods.map((m) => (
-            <div key={m.name} className="p-4 rounded-xl border border-white/10 bg-white/5 hover:border-cyan-500/30 transition-all duration-300">
-              <div className={`w-10 h-10 mx-auto ${m.bg} rounded-lg flex items-center justify-center ${m.color} mb-2`}>
-                {m.icon}
-              </div>
-              <div className="text-xs text-white/50 font-medium">{m.name}</div>
+            <div key={m.name} className="p-5 rounded-xl border border-white/10 bg-white/5 hover:border-cyan-500/30 transition-all duration-300 flex flex-col items-center justify-center gap-3 min-h-[100px]">
+              <div className="flex items-center justify-center h-10">{m.logo}</div>
+              <div className="text-[10px] text-white/40 font-semibold tracking-wider uppercase">{m.name}</div>
             </div>
           ))}
         </div>
-        <p className="text-xs text-white/20 mt-6">
-          All transactions secured with 256-bit SSL. For PayPal, Crypto, BKash, Nagad &amp; Cards, use Discord.
+        <p className="flex items-center justify-center gap-2 text-xs text-white/30 mt-6">
+          <Lock className="w-3.5 h-3.5" /> All transactions secured with 256-bit SSL. For PayPal, Crypto, BKash, Nagad &amp; Cards, use Discord.
         </p>
       </div>
     </section>
