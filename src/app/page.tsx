@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { MarketingLayout } from "@/components/layout/marketing-layout";
 
@@ -72,109 +72,89 @@ function ScrollProgressBar() {
 /* ======================== HERO ======================== */
 
 function Hero() {
-  const [current, setCurrent] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-
-  const words = ["Game Servers", "Modpacks", "Communities", "Networks"];
-
-  const goTo = useCallback(
-    (index: number) => {
-      if (isTransitioning) return;
-      setIsTransitioning(true);
-      setCurrent(index);
-      setTimeout(() => setIsTransitioning(false), 800);
-    },
-    [isTransitioning]
-  );
-
-  useEffect(() => {
-    const timer = setInterval(() => goTo((current + 1) % words.length), 3000);
-    return () => clearInterval(timer);
-  }, [current, goTo, words.length]);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-zinc-950 via-blue-950/80 to-zinc-950" />
-      <div className="absolute inset-0 dot-bg opacity-20" />
-      <div className="absolute inset-0 hero-grid" />
-      <div className="absolute inset-0 mesh-gradient" />
-      <div className="absolute inset-0 noise-overlay" />
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#0a0a0f]">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-[#0d1117] to-[#0a0a0f]" />
+      <div className="absolute inset-0 hero-grid opacity-40" />
+      <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-[200px]" />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[180px]" />
 
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-600/8 rounded-full blur-[150px] animate-float-slow" />
-      <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-purple-600/5 rounded-full blur-[180px] animate-float-reverse" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan-500/3 rounded-full blur-[200px]" />
-
-      {[...Array(12)].map((_, i) => (
+      {[...Array(8)].map((_, i) => (
         <div
           key={i}
           className="particle"
           style={{
-            left: `${5 + i * 8}%`,
-            top: `${10 + (i % 5) * 18}%`,
-            animationDuration: `${5 + i * 1.5}s`,
-            animationDelay: `${i * 0.4}s`,
+            left: `${10 + i * 10}%`,
+            top: `${15 + (i % 4) * 20}%`,
+            animationDuration: `${6 + i * 2}s`,
+            animationDelay: `${i * 0.5}s`,
             width: `${3 + (i % 3)}px`,
             height: `${3 + (i % 3)}px`,
+            background: "rgba(6, 182, 212, 0.4)",
           }}
         />
       ))}
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-24">
         <div className="max-w-4xl">
           <div
             className="inline-flex items-center gap-2.5 px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full mb-8"
             style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both" }}
           >
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-white/60 text-sm font-medium">All systems operational &middot; 99.9% uptime</span>
+            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
+            <span className="text-white/50 text-sm font-medium">NotiX Cloud</span>
           </div>
 
           <h1
-            className="text-5xl sm:text-6xl lg:text-[4.5rem] font-bold text-white font-[family-name:var(--font-heading)] leading-[1.08] mb-7"
+            className="text-5xl sm:text-6xl lg:text-[5rem] font-bold text-white font-[family-name:var(--font-heading)] leading-[1.05] mb-4"
             style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both" }}
           >
-            Premium hosting for
+            NOTIX CLOUD
             <br />
-            <span className="relative inline-block">
-              <span className="gradient-text-white">{words[current]}</span>
-              <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full" style={{ animation: "line-draw 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards" }} />
-            </span>
+            <span className="text-cyan-400">WHERE CUSTOMERS</span>
+            <br />
+            <span className="text-cyan-400 underline decoration-cyan-400/30 underline-offset-8">COME FIRST</span>
           </h1>
 
+          <div className="flex items-center gap-2 mb-6" style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both" }}>
+            <span className="text-cyan-400 text-lg font-semibold">&gt;</span>
+            <span className="text-white/70 text-lg">High Performance VPS Hosting</span>
+            <span className="w-0.5 h-5 bg-cyan-400 animate-pulse" />
+          </div>
+
           <p
-            className="text-lg sm:text-xl text-white/40 max-w-xl mb-12 leading-relaxed"
+            className="text-base text-white/30 max-w-xl mb-10 leading-relaxed"
             style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both" }}
           >
-            Lightning-fast Minecraft servers with instant setup, DDoS protection, and a dashboard that puts you in full control.
+            Experience the raw power of dedicated Ryzen infrastructure. Optimized for Minecraft, Discord Bots, Web, and VPS. No lag. No excuses.
           </p>
 
           <div
             className="flex flex-wrap gap-4 mb-16"
             style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both" }}
           >
-            <Link href="/register" className="btn-primary text-base inline-flex items-center gap-2 group">
-              <span className="flex items-center gap-2">
-                Start Free Trial
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1">
-                  <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-                </svg>
-              </span>
+            <Link href="/register" className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-8 py-4 rounded-lg text-sm transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 hover:-translate-y-0.5">
+              DEPLOY SERVER →
             </Link>
-            <Link href="/features" className="btn-secondary text-base inline-flex items-center gap-2">
-              See How It Works
+            <Link href="/features" className="bg-white/5 border border-white/10 hover:border-white/20 text-white font-semibold px-8 py-4 rounded-lg text-sm transition-all duration-300 hover:-translate-y-0.5">
+              RESOURCE CALCULATOR
             </Link>
           </div>
 
           <div
-            className="flex flex-wrap items-center gap-x-8 gap-y-3"
+            className="flex flex-wrap gap-6"
             style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both" }}
           >
-            {["99.9% Uptime", "30s Setup", "DDoS Protection", "24/7 Support"].map((item) => (
-              <div key={item} className="flex items-center gap-2 text-sm text-white/30">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-                {item}
+            {[
+              { icon: "⚡", text: "DDoS Protected" },
+              { icon: "💾", text: "NVMe SSD" },
+              { icon: "🚀", text: "Instant Deploy" },
+              { icon: "👥", text: "200+ Users" },
+            ].map((item) => (
+              <div key={item.text} className="flex items-center gap-2 text-sm text-white/40 bg-white/5 px-4 py-2 rounded-lg border border-white/5">
+                <span>{item.icon}</span>
+                <span>{item.text}</span>
               </div>
             ))}
           </div>
@@ -182,31 +162,142 @@ function Hero() {
       </div>
 
       <div className="absolute bottom-10 right-10 hidden lg:flex flex-col items-center gap-2">
-        <span className="text-white/20 text-xs font-medium tracking-widest rotate-90 mb-6">SCROLL</span>
+        <span className="text-white/15 text-xs font-medium tracking-widest rotate-90 mb-6">SCROLL</span>
         <div className="w-5 h-8 border-2 border-white/15 rounded-full flex justify-center pt-1.5">
-          <div className="w-1 h-2 bg-white/40 rounded-full animate-bounce" />
+          <div className="w-1 h-2 bg-white/30 rounded-full animate-bounce" />
         </div>
       </div>
-
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
     </section>
   );
 }
 
-/* ======================== TRUST BAR ======================== */
+/* ======================== STATS ======================== */
 
-function TrustBar() {
-  const logos = ["Hypixel", "Mineplex", "CubeCraft", "HiveMC", "DataPack", "SpigotMC", "PaperMC", "Forge"];
+function Stats() {
+  const stats = [
+    { value: 200, suffix: "+", label: "HAPPY CLIENTS", icon: "users" },
+    { value: 99, suffix: ".9%", label: "UPTIME", icon: "uptime" },
+    { value: 10, suffix: " Tbps", label: "DDOS SHIELD", icon: "shield" },
+    { value: 24, suffix: "/7", label: "LIVE SUPPORT", icon: "support" },
+  ];
+
+  const { count: c1, ref: r1 } = useCounter(200);
+  const { count: c2, ref: r2 } = useCounter(99);
+  const { count: c3, ref: r3 } = useCounter(10);
+  const { count: c4, ref: r4 } = useCounter(24);
+  const counts = [c1, c2, c3, c4];
+  const refs = [r1, r2, r3, r4];
+
   return (
-    <section className="py-14 bg-white border-y border-zinc-100">
+    <section className="py-20 bg-[#0a0a0f] border-t border-b border-white/5">
       <div className="max-w-7xl mx-auto px-6">
-        <p className="text-center text-xs font-semibold text-zinc-400 mb-8 tracking-widest uppercase fade-up">Trusted by 10,000+ server owners worldwide</p>
-        <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
-          <div className="flex animate-marquee">
-            {[...logos, ...logos].map((logo, i) => (
-              <div key={i} className="flex-shrink-0 mx-10 text-xl font-bold text-zinc-200 font-[family-name:var(--font-heading)] select-none hover:text-zinc-300 transition-colors duration-300">{logo}</div>
-            ))}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          {stats.map((stat, i) => (
+            <div key={stat.label} ref={refs[i]} className="text-center">
+              <div className="text-4xl sm:text-5xl font-bold text-white font-[family-name:var(--font-heading)] mb-2">
+                {counts[i]}{stat.suffix}
+              </div>
+              <div className="text-xs text-cyan-400 font-semibold tracking-widest">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ======================== SERVICES ======================== */
+
+function Services() {
+  const services = [
+    {
+      title: "Minecraft Hosting",
+      price: "From ₹40/mo",
+      description: "AMD Epyc 9 CPUs, NVMe SSDs, and one-click plugin installation for best experience.",
+      tags: ["Paper", "Forge", "Fabric"],
+      popular: true,
+      cta: "Get Started →",
+      href: "/pricing",
+    },
+    {
+      title: "Among Us Hosting",
+      price: "Affordable Plans",
+      description: "Host your own private Among Us server with custom maps and full control over your games.",
+      tags: ["Custom Maps", "Full Control"],
+      popular: false,
+      cta: "Start Playing →",
+      href: "/pricing",
+    },
+    {
+      title: "Cloud VPS",
+      price: "From ₹250/mo",
+      description: "Full root access, dedicated IP, and high clock speeds for any project or application.",
+      tags: ["Root Access", "DDoS Protected"],
+      popular: false,
+      cta: "Deploy Now →",
+      href: "/pricing",
+    },
+    {
+      title: "Web Hosting",
+      price: "From ₹120/mo",
+      description: "LiteSpeed web servers, free SSL, and NVMe storage for blazing fast websites.",
+      tags: ["LiteSpeed", "Free SSL"],
+      popular: false,
+      cta: "Get Started →",
+      href: "/pricing",
+    },
+    {
+      title: "Bot Hosting",
+      price: "From ₹30/mo",
+      description: "Optimized environment for Discord bots, 24/7 uptime with auto-restart on failure.",
+      tags: ["Discord Bots", "24/7 Uptime"],
+      popular: false,
+      cta: "Get Started →",
+      href: "/pricing",
+    },
+  ];
+
+  return (
+    <section className="py-28 bg-[#0a0a0f]">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-16 fade-up">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-cyan-500/10 rounded-full mb-6 border border-cyan-500/20">
+            <span className="text-xs font-semibold text-cyan-400 tracking-wide uppercase">Services</span>
           </div>
+          <h2 className="text-4xl sm:text-5xl font-bold text-white font-[family-name:var(--font-heading)] mb-5">
+            Deploy Your Infrastructure
+          </h2>
+          <p className="text-lg text-white/40 max-w-2xl mx-auto">
+            Enterprise-grade hosting solutions tailored for gamers, developers, and businesses.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
+          {services.map((service) => (
+            <div
+              key={service.title}
+              className="relative group rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-transparent p-7 hover:border-cyan-500/30 transition-all duration-500 hover:shadow-lg hover:shadow-cyan-500/5"
+            >
+              {service.popular && (
+                <div className="absolute -top-3 right-6 px-3 py-1 bg-cyan-500 text-black text-xs font-bold rounded-full">
+                  POPULAR
+                </div>
+              )}
+              <h3 className="text-xl font-bold text-white mb-2 font-[family-name:var(--font-heading)]">{service.title}</h3>
+              <div className="text-cyan-400 font-semibold text-sm mb-3">{service.price}</div>
+              <p className="text-sm text-white/40 leading-relaxed mb-4">{service.description}</p>
+              <div className="flex flex-wrap gap-2 mb-5">
+                {service.tags.map((tag) => (
+                  <span key={tag} className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs text-white/50">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <Link href={service.href} className="text-sm text-cyan-400 font-semibold hover:text-cyan-300 transition-colors inline-flex items-center gap-1">
+                {service.cta}
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -219,72 +310,51 @@ function HowItWorks() {
   const steps = [
     {
       num: "01",
-      title: "Choose your plan",
-      description: "Pick a plan that fits your server. Start small, scale anytime.",
-      icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="2" y="3" width="20" height="14" rx="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" />
-        </svg>
-      ),
-      color: "from-blue-500 to-blue-600",
+      title: "Choose Your Plan",
+      description: "Browse our plans and pick one that fits your needs. Compare resources and pricing.",
+      icon: "📊",
     },
     {
       num: "02",
-      title: "Deploy in 30 seconds",
-      description: "Your server is live before you finish your coffee. Mods, maps, all pre-configured.",
-      icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-        </svg>
-      ),
-      color: "from-amber-500 to-orange-500",
+      title: "Make Payment",
+      description: "Pay securely via UPI, Esewa, Khalti, or other supported payment methods.",
+      icon: "💳",
     },
     {
       num: "03",
-      title: "Manage everything",
-      description: "Console, files, players, backups — one dashboard to rule them all.",
-      icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-        </svg>
-      ),
-      color: "from-emerald-500 to-green-500",
+      title: "Server Deployed",
+      description: "Instantly provisioned and ready to use. No manual setup required from your end.",
+      icon: "🚀",
     },
   ];
 
   return (
-    <section className="py-28 bg-white relative">
-      <div className="absolute inset-0 grid-bg opacity-40" />
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-20 fade-up">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-50 rounded-full mb-6">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
-            </svg>
-            <span className="text-xs font-semibold text-emerald-600 tracking-wide uppercase">How It Works</span>
+    <section className="py-28 bg-[#0d1117]">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-16 fade-up">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-cyan-500/10 rounded-full mb-6 border border-cyan-500/20">
+            <span className="text-xs font-semibold text-cyan-400 tracking-wide uppercase">Process</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-bold text-zinc-900 font-[family-name:var(--font-heading)] mb-5">
-            From zero to <span className="gradient-text">live server</span>
+          <h2 className="text-4xl sm:text-5xl font-bold text-white font-[family-name:var(--font-heading)] mb-5">
+            How It Works
           </h2>
-          <p className="text-lg text-zinc-500 max-w-2xl mx-auto">Three steps. No credit card required. It&apos;s that simple.</p>
+          <p className="text-lg text-white/40 max-w-2xl mx-auto">
+            Get your server running in three simple steps.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 stagger-children">
           {steps.map((step, idx) => (
             <div key={step.num} className="relative group">
               {idx < steps.length - 1 && (
-                <div className="hidden md:block absolute top-14 left-[calc(50%+60px)] w-[calc(100%-120px)] h-[2px] bg-gradient-to-r from-zinc-200 to-zinc-100">
-                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 border-r-2 border-t-2 border-zinc-300 rotate-45" />
+                <div className="hidden md:block absolute top-14 left-[calc(50%+60px)] w-[calc(100%-120px)] h-[2px] bg-gradient-to-r from-cyan-500/20 to-cyan-500/5">
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 border-r-2 border-t-2 border-cyan-500/30 rotate-45" />
                 </div>
               )}
-              <div className="card-professional p-8 text-center relative overflow-hidden group-hover:shadow-xl group-hover:shadow-blue-600/5 transition-all duration-500">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${step.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="text-xs font-bold text-zinc-300 tracking-widest mb-4">{step.num}</div>
-                <div className={`w-16 h-16 bg-gradient-to-br ${step.color} rounded-2xl flex items-center justify-center mx-auto mb-6 text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                  {step.icon}
-                </div>
-                <h3 className="text-xl font-bold text-zinc-900 mb-3 font-[family-name:var(--font-heading)]">{step.title}</h3>
-                <p className="text-sm text-zinc-500 leading-relaxed">{step.description}</p>
+              <div className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-transparent p-8 text-center group-hover:border-cyan-500/30 transition-all duration-500">
+                <div className="text-4xl mb-5">{step.icon}</div>
+                <h3 className="text-xl font-bold text-white mb-3 font-[family-name:var(--font-heading)]">{step.title}</h3>
+                <p className="text-sm text-white/40 leading-relaxed">{step.description}</p>
               </div>
             </div>
           ))}
@@ -294,249 +364,234 @@ function HowItWorks() {
   );
 }
 
-/* ======================== FEATURES ======================== */
+/* ======================== WHY CHOOSE US ======================== */
 
-function Features() {
-  const [selected, setSelected] = useState<number | null>(null);
-  const features = [
-    { icon: "zap", title: "Instant Setup", description: "Your server is live in under 30 seconds.", color: "from-amber-500 to-orange-500", details: "Automated provisioning, one-click creation, pre-configured firewall, instant connection details." },
-    { icon: "shield", title: "DDoS Protection", description: "Enterprise-grade protection up to 1Tbps.", color: "from-blue-600 to-blue-700", details: "Layer 3/4/7 mitigation, real-time analysis, automatic detection, zero-downtime during attacks." },
-    { icon: "harddrive", title: "NVMe Storage", description: "Blazing-fast NVMe SSDs for smooth gameplay.", color: "from-violet-500 to-purple-600", details: "7GB/s read speeds, redundant RAID arrays, daily snapshots, enterprise-grade hardware." },
-    { icon: "globe", title: "Global Locations", description: "12 data centers across 6 continents.", color: "from-emerald-500 to-green-600", details: "<20ms to most players, redundant network paths, BGP routing, premium peering." },
-    { icon: "layers", title: "One-Click Mods", description: "Install 100+ modpacks with a single click.", color: "from-pink-500 to-rose-600", details: "Forge, Fabric, Paper, Spigot support. CurseForge integration. Custom JAR upload." },
-    { icon: "lock", title: "Automatic Backups", description: "Daily backups with one-click restore.", color: "from-emerald-500 to-green-600", details: "Daily automatic backups, on-demand snapshots, instant restore, 30-day retention." },
+function WhyChoose() {
+  const reasons = [
+    {
+      icon: "⚡",
+      title: "Ryzen Power",
+      description: "Latest AMD Ryzen CPUs with high single-thread performance with Lighting Fast NVMe Storage for smooth gameplay.",
+    },
+    {
+      icon: "🛡️",
+      title: "DDoS Protected",
+      description: "Enterprise-grade mitigation keeps your server online 24/7 under any attack.",
+    },
+    {
+      icon: "🎧",
+      title: "Expert Support",
+      description: "Real humans, not bots. Get help via Discord tickets within minutes.",
+    },
+    {
+      icon: "💰",
+      title: "Affordable",
+      description: "Pocket-friendly plans designed for Indian and Nepali users.",
+    },
   ];
 
-  const iconSvgs: Record<string, React.ReactNode> = {
-    zap: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>,
-    shield: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>,
-    harddrive: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="12" x2="2" y2="12" /><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" /></svg>,
-    globe: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>,
-    layers: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 17 12 22 22 17" /><polyline points="2 12 12 17 22 12" /></svg>,
-    lock: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>,
+  return (
+    <section className="py-28 bg-[#0a0a0f]">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-16 fade-up">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-cyan-500/10 rounded-full mb-6 border border-cyan-500/20">
+            <span className="text-xs font-semibold text-cyan-400 tracking-wide uppercase">Why Us</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-bold text-white font-[family-name:var(--font-heading)] mb-5">
+            Why Choose NotiX Cloud?
+          </h2>
+          <p className="text-lg text-white/40 max-w-2xl mx-auto">
+            We don&apos;t just host your servers — we power your success.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
+          {reasons.map((r) => (
+            <div key={r.title} className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-transparent p-7 text-center hover:border-cyan-500/30 transition-all duration-500">
+              <div className="text-3xl mb-4">{r.icon}</div>
+              <h3 className="text-lg font-bold text-white mb-3 font-[family-name:var(--font-heading)]">{r.title}</h3>
+              <p className="text-sm text-white/40 leading-relaxed">{r.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ======================== INFRASTRUCTURE ======================== */
+
+function Infrastructure() {
+  const items = [
+    { icon: "🔲", title: "AMD Ryzen", subtitle: "9 7953X" },
+    { icon: "💾", title: "NVMe SSD", subtitle: "Gen4 Drives" },
+    { icon: "🛡️", title: "DDoS Shield", subtitle: "10 Tbps" },
+    { icon: "🌐", title: "1 Gbps", subtitle: "Bandwidth" },
+  ];
+
+  return (
+    <section className="py-20 bg-[#0d1117] border-t border-b border-white/5">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-12 fade-up">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-cyan-500/10 rounded-full mb-6 border border-cyan-500/20">
+            <span className="text-xs font-semibold text-cyan-400 tracking-wide uppercase">Infrastructure</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-bold text-white font-[family-name:var(--font-heading)]">
+            Powered By The Best
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
+          {items.map((item) => (
+            <div key={item.title} className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-transparent p-8 text-center hover:border-cyan-500/30 transition-all duration-500">
+              <div className="text-3xl mb-3">{item.icon}</div>
+              <h3 className="text-lg font-bold text-white font-[family-name:var(--font-heading)]">{item.title}</h3>
+              <p className="text-sm text-white/40 mt-1">{item.subtitle}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ======================== SERVER CALCULATOR ======================== */
+
+function ServerCalculator() {
+  const [serverType, setServerType] = useState("paper");
+  const [players, setPlayers] = useState(50);
+  const [plugins, setPlugins] = useState(10);
+  const [result, setResult] = useState<{ ram: string; cpu: string; disk: string } | null>(null);
+
+  const calculate = () => {
+    let ram = 2;
+    if (serverType === "forge" || serverType === "fabric") ram = 4;
+    ram += Math.floor(players / 10);
+    ram += Math.floor(plugins / 5);
+    if (ram < 2) ram = 2;
+    const cpu = players > 100 ? 4 : players > 50 ? 2 : 1;
+    const disk = Math.max(10, ram * 3);
+    setResult({ ram: `${ram} GB`, cpu: `${cpu} Cores`, disk: `${disk} GB NVMe` });
   };
 
   return (
-    <section className="py-28 bg-zinc-50 relative">
-      <div className="absolute inset-0 grid-bg opacity-30" />
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-20 fade-up">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 rounded-full mb-6">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-            <span className="text-xs font-semibold text-blue-600 tracking-wide uppercase">Features</span>
+    <section className="py-28 bg-[#0a0a0f]">
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="text-center mb-12 fade-up">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-cyan-500/10 rounded-full mb-6 border border-cyan-500/20">
+            <span className="text-xs font-semibold text-cyan-400 tracking-wide uppercase">Tool</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-bold text-zinc-900 font-[family-name:var(--font-heading)] mb-5">
-            Everything you need to <span className="gradient-text">dominate</span>
+          <h2 className="text-4xl sm:text-5xl font-bold text-white font-[family-name:var(--font-heading)] mb-5">
+            Server Calculator
           </h2>
-          <p className="text-lg text-zinc-500 max-w-2xl mx-auto">Built for performance, designed for simplicity.</p>
-          <Link href="/features" className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 mt-6 hover:gap-3 transition-all duration-300">
-            View All Features
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-            </svg>
-          </Link>
+          <p className="text-lg text-white/40 max-w-2xl mx-auto">
+            Get accurate resource estimates based on real-world benchmarks.
+          </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
-          {features.map((feature, idx) => (
-            <button key={feature.title} onClick={() => setSelected(idx)} className="card-professional p-7 group cursor-pointer text-left">
-              <div className={`w-12 h-12 bg-gradient-to-br ${feature.color} rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-all duration-300`}>
-                {iconSvgs[feature.icon]}
-              </div>
-              <h3 className="text-lg font-bold text-zinc-900 mb-2 font-[family-name:var(--font-heading)]">{feature.title}</h3>
-              <p className="text-sm text-zinc-500 leading-relaxed mb-3">{feature.description}</p>
-              <span className="text-xs font-semibold text-blue-600 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                Learn more <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
-              </span>
+
+        <div className="rounded-2xl border border-cyan-500/20 bg-gradient-to-b from-cyan-500/5 to-transparent p-8">
+          <div className="p-3 bg-cyan-500/10 border border-cyan-500/20 rounded-xl mb-8">
+            <p className="text-sm text-cyan-400 text-center">
+              Includes OS overhead, JVM memory, and realistic plugin/mod memory usage. Recommendations are generous for smooth gameplay.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div>
+              <label className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-2 block">Server Type</label>
+              <select
+                value={serverType}
+                onChange={(e) => setServerType(e.target.value)}
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-cyan-500/50 transition-colors"
+              >
+                <option value="paper">Paper / Spigot</option>
+                <option value="forge">Forge</option>
+                <option value="fabric">Fabric</option>
+                <option value="vanilla">Vanilla</option>
+              </select>
+            </div>
+            <div>
+              <label className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-2 block">Expected Players</label>
+              <input
+                type="number"
+                value={players}
+                onChange={(e) => setPlayers(parseInt(e.target.value) || 0)}
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-cyan-500/50 transition-colors"
+                placeholder="e.g. 50"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-2 block">Plugins</label>
+              <input
+                type="number"
+                value={plugins}
+                onChange={(e) => setPlugins(parseInt(e.target.value) || 0)}
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-cyan-500/50 transition-colors"
+                placeholder="e.g. 10"
+              />
+            </div>
+          </div>
+
+          <div className="text-center">
+            <button
+              onClick={calculate}
+              className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-8 py-3 rounded-lg text-sm transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25"
+            >
+              CALCULATE RESOURCES 📊
             </button>
-          ))}
-        </div>
-      </div>
-      {selected !== null && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" onClick={() => setSelected(null)}>
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-          <div className="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8" onClick={(e) => e.stopPropagation()} style={{ animation: "scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1)" }}>
-            <button onClick={() => setSelected(null)} className="absolute top-4 right-4 p-2 rounded-lg hover:bg-zinc-100 transition-colors">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#71717a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
-            </button>
-            <div className={`w-14 h-14 bg-gradient-to-br ${features[selected].color} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}>
-              {iconSvgs[features[selected].icon]}
-            </div>
-            <h2 className="text-2xl font-bold text-zinc-900 font-[family-name:var(--font-heading)] mb-3">{features[selected].title}</h2>
-            <p className="text-zinc-500 leading-relaxed mb-4">{features[selected].description}</p>
-            <p className="text-sm text-zinc-600 leading-relaxed mb-6">{features[selected].details}</p>
-            <div className="flex gap-3">
-              <Link href="/features" className="btn-primary flex-1 text-center text-sm">View All Features</Link>
-              <button onClick={() => setSelected(null)} className="btn-outline flex-1 text-sm">Close</button>
-            </div>
           </div>
-        </div>
-      )}
-    </section>
-  );
-}
 
-/* ======================== STATS ======================== */
-
-function StatItem({ value, suffix, label, icon }: { value: number; suffix: string; label: string; icon: string }) {
-  const { count, ref } = useCounter(value);
-  return (
-    <div ref={ref} className="text-center group">
-      <div className="w-14 h-14 bg-white/8 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-white/12 transition-all duration-300 group-hover:scale-110">
-        {icon === "server" && <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2" /><rect x="2" y="14" width="20" height="8" rx="2" ry="2" /><line x1="6" y1="6" x2="6.01" y2="6" /><line x1="6" y1="18" x2="6.01" y2="18" /></svg>}
-        {icon === "shield" && <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>}
-        {icon === "users" && <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>}
-        {icon === "headphones" && <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6" /><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" /></svg>}
-      </div>
-      <div className="text-4xl sm:text-5xl font-bold text-white font-[family-name:var(--font-heading)] mb-2">{count}{suffix}</div>
-      <div className="text-sm text-white/35 font-medium tracking-wide">{label}</div>
-    </div>
-  );
-}
-
-function Stats() {
-  const stats = [
-    { value: 10000, suffix: "+", label: "Servers Hosted", icon: "server" },
-    { value: 99, suffix: ".9%", label: "Uptime SLA", icon: "shield" },
-    { value: 50, suffix: "M+", label: "Players Served", icon: "users" },
-    { value: 24, suffix: "/7", label: "Expert Support", icon: "headphones" },
-  ];
-  return (
-    <section className="py-24 aurora-bg relative overflow-hidden">
-      <div className="absolute inset-0 noise-overlay" />
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 stagger-children">
-          {stats.map((stat) => <StatItem key={stat.label} value={stat.value} suffix={stat.suffix} label={stat.label} icon={stat.icon} />)}
+          {result && (
+            <div className="mt-8 grid grid-cols-3 gap-4">
+              <div className="p-4 bg-white/5 border border-white/10 rounded-xl text-center">
+                <div className="text-2xl font-bold text-cyan-400">{result.ram}</div>
+                <div className="text-xs text-white/40 mt-1">RAM</div>
+              </div>
+              <div className="p-4 bg-white/5 border border-white/10 rounded-xl text-center">
+                <div className="text-2xl font-bold text-cyan-400">{result.cpu}</div>
+                <div className="text-xs text-white/40 mt-1">CPU</div>
+              </div>
+              <div className="p-4 bg-white/5 border border-white/10 rounded-xl text-center">
+                <div className="text-2xl font-bold text-cyan-400">{result.disk}</div>
+                <div className="text-xs text-white/40 mt-1">Storage</div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>
   );
 }
 
-/* ======================== TESTIMONIALS ======================== */
+/* ======================== PAYMENT METHODS ======================== */
 
-function Testimonials() {
-  const testimonials = [
-    {
-      name: "Alex Chen",
-      role: "Server Owner, PixelCraft",
-      text: "Moved from a budget host to NotiX and the difference was night and day. Setup took 20 seconds and the performance is incredible.",
-      rating: 5,
-    },
-    {
-      name: "Sarah Miller",
-      role: "Modpack Developer",
-      text: "The one-click modpack installer saved me hours. I can test different configurations instantly without any hassle.",
-      rating: 5,
-    },
-    {
-      name: "Marcus Johnson",
-      role: "Network Admin, RealmX",
-      text: "We run 15 servers across 3 regions. NotiX's dashboard makes managing everything effortless. Support responds in minutes.",
-      rating: 5,
-    },
+function PaymentMethods() {
+  const methods = [
+    { name: "UPI", icon: "💳" },
+    { name: "PhonePe", icon: "📱" },
+    { name: "GPay", icon: "💳" },
+    { name: "Esewa", icon: "💰" },
+    { name: "Khalti", icon: "💰" },
+    { name: "FonePay", icon: "💳" },
+    { name: "Bank Transfer", icon: "🏦" },
   ];
 
   return (
-    <section className="py-28 bg-white relative">
-      <div className="absolute inset-0 grid-bg opacity-30" />
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-20 fade-up">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-50 rounded-full mb-6">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d97706" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-            </svg>
-            <span className="text-xs font-semibold text-amber-600 tracking-wide uppercase">Testimonials</span>
-          </div>
-          <h2 className="text-4xl sm:text-5xl font-bold text-zinc-900 font-[family-name:var(--font-heading)] mb-5">
-            Loved by <span className="gradient-text">server owners</span>
-          </h2>
-          <p className="text-lg text-zinc-500 max-w-2xl mx-auto">Don&apos;t take our word for it. Here&apos;s what our community says.</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-children">
-          {testimonials.map((t) => (
-            <div key={t.name} className="card-professional p-8 relative group">
-              <div className="flex gap-1 mb-4">
-                {[...Array(t.rating)].map((_, i) => (
-                  <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="text-zinc-600 leading-relaxed mb-6 text-sm">&ldquo;{t.text}&rdquo;</p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold text-sm">
-                  {t.name.split(" ").map(n => n[0]).join("")}
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-zinc-900">{t.name}</p>
-                  <p className="text-xs text-zinc-400">{t.role}</p>
-                </div>
-              </div>
+    <section className="py-20 bg-[#0d1117] border-t border-b border-white/5">
+      <div className="max-w-7xl mx-auto px-6 text-center">
+        <p className="text-xs font-semibold text-white/30 tracking-widest uppercase mb-2">Accepted Payment Methods</p>
+        <p className="text-lg text-white/50 mb-10">We accept all Indian &amp; Nepali payment methods</p>
+        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-4">
+          {methods.map((m) => (
+            <div key={m.name} className="p-4 rounded-xl border border-white/10 bg-white/5 hover:border-cyan-500/30 transition-all duration-300">
+              <div className="text-2xl mb-2">{m.icon}</div>
+              <div className="text-xs text-white/50 font-medium">{m.name}</div>
             </div>
           ))}
         </div>
-      </div>
-    </section>
-  );
-}
-
-/* ======================== PRICING ======================== */
-
-function Pricing() {
-  const [annual, setAnnual] = useState(true);
-  const plans = [
-    { name: "Starter", price: annual ? 5.99 : 7.99, description: "Perfect for small servers", features: ["2 GB RAM", "10 GB NVMe", "10 Players", "DDoS Protection"], popular: false },
-    { name: "Pro", price: annual ? 14.99 : 19.99, description: "Best for modded servers", features: ["6 GB RAM", "30 GB NVMe", "Unlimited Players", "Priority Support"], popular: true },
-    { name: "Enterprise", price: annual ? 39.99 : 49.99, description: "For large networks", features: ["16 GB RAM", "80 GB NVMe", "Unlimited Players", "24/7 Phone Support"], popular: false },
-  ];
-  return (
-    <section id="pricing" className="py-28 bg-zinc-50 relative">
-      <div className="absolute inset-0 grid-bg opacity-30" />
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-16 fade-up">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 rounded-full mb-6">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="20" x2="12" y2="10" /><line x1="18" y1="20" x2="18" y2="4" /><line x1="6" y1="20" x2="6" y2="16" /></svg>
-            <span className="text-xs font-semibold text-blue-600 tracking-wide uppercase">Pricing</span>
-          </div>
-          <h2 className="text-4xl sm:text-5xl font-bold text-zinc-900 font-[family-name:var(--font-heading)] mb-5">Simple, transparent <span className="gradient-text">pricing</span></h2>
-          <p className="text-lg text-zinc-500 max-w-xl mx-auto mb-10">No hidden fees. Cancel anytime.</p>
-          <div className="flex items-center justify-center gap-4">
-            <div className="pricing-toggle inline-flex">
-              <button onClick={() => setAnnual(false)} className={`pricing-toggle-option ${!annual ? "active" : ""}`}>Monthly</button>
-              <button onClick={() => setAnnual(true)} className={`pricing-toggle-option ${annual ? "active" : ""}`}>Annual <span className="text-xs ml-1 opacity-70">Save 25%</span></button>
-            </div>
-            <Link href="/pricing" className="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors">
-              Compare all plans &rarr;
-            </Link>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start stagger-children">
-          {plans.map((plan) => (
-            <div key={plan.name} className={`card-professional p-8 relative ${plan.popular ? "ring-2 ring-blue-600 shadow-xl shadow-blue-600/10 scale-[1.02]" : ""}`}>
-              {plan.popular && <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-xs font-bold rounded-full shadow-lg shadow-blue-600/25">MOST POPULAR</div>}
-              <h3 className="text-lg font-bold text-zinc-900 font-[family-name:var(--font-heading)] mb-1">{plan.name}</h3>
-              <p className="text-sm text-zinc-500 mb-6">{plan.description}</p>
-              <div className="flex items-baseline gap-1 mb-8">
-                <span className="text-4xl font-bold text-zinc-900 font-[family-name:var(--font-heading)]">${plan.price}</span>
-                <span className="text-zinc-400">/mo</span>
-              </div>
-              <ul className="space-y-3 mb-8">
-                {plan.features.map((f) => (
-                  <li key={f} className="flex items-center gap-3 text-sm text-zinc-600">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0"><polyline points="20 6 9 17 4 12" /></svg>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/register" className={`block text-center py-3 rounded-xl font-semibold text-sm transition-all ${plan.popular ? "btn-primary w-full" : "btn-outline w-full"}`}>
-                {plan.popular ? "Get Started Now" : "Choose Plan"}
-              </Link>
-            </div>
-          ))}
-        </div>
+        <p className="text-xs text-white/20 mt-6">
+          All transactions secured with 256-bit SSL. For PayPal, Crypto, BKash, Nagad &amp; Cards, use Discord.
+        </p>
       </div>
     </section>
   );
@@ -547,47 +602,50 @@ function Pricing() {
 function FAQ() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const faqs = [
-    { q: "How quickly will my server be set up?", a: "Your server is deployed and ready to use within 30 seconds of completing your order. You'll receive your connection details instantly via email and dashboard." },
+    { q: "What is NotiX Cloud?", a: "NotiX Cloud is a premium hosting platform for Minecraft servers, VPS, web hosting, and Discord bot hosting. We provide high-performance infrastructure with DDoS protection and 24/7 expert support." },
+    { q: "What payments do you accept?", a: "We accept UPI, PhonePe, Google Pay, Esewa, Khalti, FonePay, and Bank Transfers. For PayPal, Crypto, and cards, join our Discord server." },
     { q: "Can I upgrade my plan later?", a: "Absolutely. You can upgrade or downgrade your server resources at any time from the dashboard. Changes take effect within minutes with no downtime." },
-    { q: "Do you support modded servers?", a: "Yes! We support Forge, Fabric, Paper, Spigot, and all major server types. Our one-click modpack installer supports over 100 popular modpacks." },
-    { q: "What kind of support do you offer?", a: "We offer 24/7 support via live chat and tickets. Pro and Enterprise plans include priority support with faster response times." },
-    { q: "Is there a money-back guarantee?", a: "Yes, we offer a 7-day money-back guarantee on all plans. If you're not satisfied, contact support for a full refund." },
+    { q: "How fast is server deployment?", a: "Your server is deployed and ready to use within 30 seconds of completing your order. No manual setup required." },
+    { q: "Do you offer DDoS protection?", a: "Yes, all our servers come with enterprise-grade DDoS protection up to 10 Tbps. Your server stays online even under attack." },
+    { q: "What is your refund policy?", a: "We offer a 7-day money-back guarantee on all plans. If you're not satisfied, contact support for a full refund." },
   ];
 
   return (
-    <section className="py-28 bg-white relative">
+    <section className="py-28 bg-[#0a0a0f]">
       <div className="max-w-3xl mx-auto px-6">
         <div className="text-center mb-16 fade-up">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-violet-50 rounded-full mb-6">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><line x1="12" y1="17" x2="12.01" y2="17" />
-            </svg>
-            <span className="text-xs font-semibold text-violet-600 tracking-wide uppercase">FAQ</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-cyan-500/10 rounded-full mb-6 border border-cyan-500/20">
+            <span className="text-xs font-semibold text-cyan-400 tracking-wide uppercase">Help</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-bold text-zinc-900 font-[family-name:var(--font-heading)] mb-5">
-            Frequently asked <span className="gradient-text">questions</span>
+          <h2 className="text-4xl sm:text-5xl font-bold text-white font-[family-name:var(--font-heading)] mb-5">
+            Frequently Asked Questions
           </h2>
-          <p className="text-lg text-zinc-500 max-w-2xl mx-auto">Everything you need to know about NotiX Cloud.</p>
+          <p className="text-lg text-white/40 max-w-2xl mx-auto">
+            Got questions? We&apos;ve got answers.
+          </p>
         </div>
 
         <div className="space-y-3 stagger-children">
           {faqs.map((faq, i) => (
-            <div key={i} className="card-professional overflow-hidden cursor-pointer group" onClick={() => setOpenFaq(openFaq === i ? null : i)}>
+            <div
+              key={i}
+              className="rounded-xl border border-white/10 bg-white/5 cursor-pointer overflow-hidden hover:border-white/15 transition-all duration-300"
+              onClick={() => setOpenFaq(openFaq === i ? null : i)}
+            >
               <div className="p-6 flex items-center justify-between">
-                <h3 className="font-semibold text-zinc-900 pr-4 group-hover:text-blue-600 transition-colors">{faq.q}</h3>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`flex-shrink-0 transition-all duration-300 text-zinc-400 group-hover:text-blue-500 ${openFaq === i ? "rotate-180 text-blue-500" : ""}`}>
+                <h3 className="font-semibold text-white pr-4">{faq.q}</h3>
+                <svg
+                  width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                  className={`flex-shrink-0 transition-all duration-300 text-white/30 ${openFaq === i ? "rotate-180 text-cyan-400" : ""}`}
+                >
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
               </div>
               <div className={`transition-all duration-300 ease-in-out ${openFaq === i ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}>
-                <div className="px-6 pb-6 text-sm text-zinc-500 leading-relaxed">{faq.a}</div>
+                <div className="px-6 pb-6 text-sm text-white/40 leading-relaxed">{faq.a}</div>
               </div>
             </div>
           ))}
-        </div>
-
-        <div className="text-center mt-10 fade-up">
-          <p className="text-sm text-zinc-400">Still have questions? <Link href="/contact" className="text-blue-600 font-semibold hover:text-blue-700 transition-colors">Contact our support team</Link></p>
         </div>
       </div>
     </section>
@@ -598,25 +656,25 @@ function FAQ() {
 
 function CTA() {
   return (
-    <section className="py-28 relative overflow-hidden">
-      <div className="absolute inset-0 animated-gradient-bg" />
-      <div className="absolute inset-0 noise-overlay" />
-      <div className="absolute inset-0 hero-grid" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[150px]" />
+    <section className="py-28 bg-[#0a0a0f] relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 via-transparent to-cyan-500/5" />
       <div className="max-w-4xl mx-auto px-6 text-center relative z-10 fade-up">
-        <h2 className="text-4xl sm:text-5xl font-bold text-white font-[family-name:var(--font-heading)] mb-6">Ready to launch your server?</h2>
-        <p className="text-lg text-white/40 mb-10 max-w-xl mx-auto">Join 10,000+ server owners. Start your free trial today.</p>
+        <div className="text-4xl mb-6">🚀</div>
+        <h2 className="text-4xl sm:text-5xl font-bold text-white font-[family-name:var(--font-heading)] mb-6">
+          Ready to Start?
+        </h2>
+        <p className="text-lg text-white/40 mb-10 max-w-xl mx-auto">
+          Deploy your server in seconds and join 200+ happy customers.
+        </p>
         <div className="flex flex-wrap justify-center gap-4">
-          <Link href="/register" className="btn-primary text-base inline-flex items-center gap-2 group">
-            <span className="flex items-center gap-2">
-              Start Free Trial
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1">
-                <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-              </svg>
-            </span>
+          <Link href="/register" className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-8 py-4 rounded-lg text-sm transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 hover:-translate-y-0.5">
+            GET STARTED NOW →
           </Link>
-          <Link href="/login" className="btn-secondary text-base">Log In to Dashboard</Link>
+          <Link href="/discord" className="bg-white/5 border border-white/10 hover:border-white/20 text-white font-semibold px-8 py-4 rounded-lg text-sm transition-all duration-300 hover:-translate-y-0.5 flex items-center gap-2">
+            <span className="text-lg">💬</span> JOIN DISCORD
+          </Link>
         </div>
+        <p className="text-sm text-white/30 mt-6">Pay with UPI, Esewa, Khalti &amp; more. For more payment options, join Discord.</p>
       </div>
     </section>
   );
@@ -630,12 +688,13 @@ export default function HomePage() {
     <MarketingLayout>
       <ScrollProgressBar />
       <Hero />
-      <TrustBar />
-      <HowItWorks />
-      <Features />
       <Stats />
-      <Testimonials />
-      <Pricing />
+      <Services />
+      <HowItWorks />
+      <WhyChoose />
+      <Infrastructure />
+      <ServerCalculator />
+      <PaymentMethods />
       <FAQ />
       <CTA />
     </MarketingLayout>

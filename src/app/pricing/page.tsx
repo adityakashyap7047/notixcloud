@@ -2,13 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { PublicNavbar } from "@/components/layout/public-navbar";
-import { PublicFooter } from "@/components/layout/public-footer";
-import { Modal } from "@/components/ui/modal";
-import { Button } from "@/components/ui/button";
-import {
-  Check, ArrowRight, Server, Shield, Zap, ChevronDown,
-} from "lucide-react";
+import { MarketingLayout } from "@/components/layout/marketing-layout";
+import { Check, ChevronDown, Server, Zap, Shield } from "lucide-react";
 
 function useScrollAnimation() {
   useEffect(() => {
@@ -28,8 +23,9 @@ function useScrollAnimation() {
 const plans = [
   {
     name: "Starter",
-    priceMonthly: 7.99,
-    priceAnnual: 5.99,
+    priceMonthly: 40,
+    priceAnnual: 35,
+    currency: "₹",
     description: "Perfect for small survival servers with friends",
     features: [
       { text: "2 GB RAM", included: true },
@@ -47,8 +43,9 @@ const plans = [
   },
   {
     name: "Pro",
-    priceMonthly: 19.99,
-    priceAnnual: 14.99,
+    priceMonthly: 149,
+    priceAnnual: 120,
+    currency: "₹",
     description: "Best for modded servers and growing communities",
     features: [
       { text: "6 GB RAM", included: true },
@@ -66,8 +63,9 @@ const plans = [
   },
   {
     name: "Enterprise",
-    priceMonthly: 49.99,
-    priceAnnual: 39.99,
+    priceMonthly: 499,
+    priceAnnual: 399,
+    currency: "₹",
     description: "For large networks and businesses",
     features: [
       { text: "16 GB RAM", included: true },
@@ -91,65 +89,93 @@ const faqs = [
   { q: "Do you support modded servers?", a: "Yes! We support Forge, Fabric, Paper, Spigot, and all major server types. Our one-click modpack installer supports over 100 popular modpacks." },
   { q: "What kind of support do you offer?", a: "We offer 24/7 support via live chat and tickets. Pro and Enterprise plans include priority support with faster response times. Enterprise also includes phone support." },
   { q: "Is there a money-back guarantee?", a: "Yes, we offer a 7-day money-back guarantee on all plans. If you're not satisfied, contact support for a full refund." },
-  { q: "What payment methods do you accept?", a: "We accept UPI, credit/debit cards, and net banking. All payments are processed securely through our payment partners." },
+  { q: "What payment methods do you accept?", a: "We accept UPI, PhonePe, Google Pay, Esewa, Khalti, FonePay, and Bank Transfers. For PayPal, Crypto, and cards, join our Discord server." },
 ];
 
 export default function PricingPage() {
   useScrollAnimation();
   const [annual, setAnnual] = useState(true);
-  const [selectedPlan, setSelectedPlan] = useState<typeof plans[0] | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen bg-white">
-      <PublicNavbar />
-      <section className="pt-32 pb-20 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 relative overflow-hidden">
-        <div className="absolute inset-0 dot-bg opacity-20" />
+    <MarketingLayout>
+      <section className="pt-32 pb-20 bg-[#0a0a0f] relative overflow-hidden">
+        <div className="absolute inset-0 hero-grid opacity-30" />
         <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-cyan-500/10 rounded-full mb-6 border border-cyan-500/20">
+            <span className="text-xs font-semibold text-cyan-400 tracking-wide uppercase">Pricing</span>
+          </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white font-[family-name:var(--font-heading)] mb-4">
-            Simple, transparent <span className="gradient-text-white">pricing</span>
+            Simple, Transparent <span className="text-cyan-400">Pricing</span>
           </h1>
-          <p className="text-lg text-white/50 max-w-xl mx-auto mb-10">
-            No hidden fees. No surprises. Cancel anytime. Start with a 7-day free trial.
+          <p className="text-lg text-white/40 max-w-xl mx-auto mb-10">
+            No hidden fees. No surprises. Cancel anytime.
           </p>
-          <div className="pricing-toggle inline-flex">
-            <button onClick={() => setAnnual(false)} className={`pricing-toggle-option ${!annual ? "active" : ""}`}>Monthly</button>
-            <button onClick={() => setAnnual(true)} className={`pricing-toggle-option ${annual ? "active" : ""}`}>Annual <span className="text-xs ml-1 opacity-70">Save 25%</span></button>
+          <div className="inline-flex p-1 bg-white/5 border border-white/10 rounded-full">
+            <button
+              onClick={() => setAnnual(false)}
+              className={`px-6 py-2 rounded-full text-sm font-semibold transition-all ${!annual ? "bg-cyan-500 text-black" : "text-white/50 hover:text-white/70"}`}
+            >
+              Monthly
+            </button>
+            <button
+              onClick={() => setAnnual(true)}
+              className={`px-6 py-2 rounded-full text-sm font-semibold transition-all ${annual ? "bg-cyan-500 text-black" : "text-white/50 hover:text-white/70"}`}
+            >
+              Annual <span className="text-xs ml-1 opacity-70">Save 25%</span>
+            </button>
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-white relative">
-        <div className="absolute inset-0 grid-bg opacity-30" />
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <section className="py-20 bg-[#0a0a0f]">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start stagger-children">
             {plans.map((plan) => {
               const price = annual ? plan.priceAnnual : plan.priceMonthly;
               const Icon = plan.icon;
               return (
-                <div key={plan.name} className={`card-professional p-8 relative ${plan.popular ? "ring-2 ring-blue-600 shadow-xl shadow-blue-600/10 scale-[1.02]" : ""}`}>
-                  {plan.popular && <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-xs font-bold rounded-full shadow-lg shadow-blue-600/25">MOST POPULAR</div>}
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-white" />
+                <div
+                  key={plan.name}
+                  className={`relative rounded-2xl border p-8 transition-all duration-500 ${
+                    plan.popular
+                      ? "border-cyan-500/40 bg-gradient-to-b from-cyan-500/10 to-transparent shadow-lg shadow-cyan-500/10 scale-[1.02]"
+                      : "border-white/10 bg-gradient-to-b from-white/5 to-transparent hover:border-white/20"
+                  }`}
+                >
+                  {plan.popular && (
+                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 bg-cyan-500 text-black text-xs font-bold rounded-full">
+                      MOST POPULAR
                     </div>
-                    <h3 className="text-lg font-bold text-zinc-900 font-[family-name:var(--font-heading)]">{plan.name}</h3>
+                  )}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 bg-cyan-500/10 border border-cyan-500/20 rounded-lg flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-cyan-400" />
+                    </div>
+                    <h3 className="text-lg font-bold text-white font-[family-name:var(--font-heading)]">{plan.name}</h3>
                   </div>
-                  <p className="text-sm text-zinc-500 mb-6">{plan.description}</p>
+                  <p className="text-sm text-white/40 mb-6">{plan.description}</p>
                   <div className="flex items-baseline gap-1 mb-8">
-                    <span className="text-4xl font-bold text-zinc-900 font-[family-name:var(--font-heading)]">${price}</span>
-                    <span className="text-zinc-400">/mo</span>
+                    <span className="text-4xl font-bold text-white font-[family-name:var(--font-heading)]">{plan.currency}{price}</span>
+                    <span className="text-white/40">/mo</span>
                   </div>
                   <ul className="space-y-3 mb-8">
                     {plan.features.map((f) => (
-                      <li key={f.text} className={`flex items-center gap-3 text-sm ${f.included ? "text-zinc-700" : "text-zinc-300"}`}>
-                        <Check className={`w-4 h-4 flex-shrink-0 ${f.included ? "text-blue-600" : "text-zinc-200"}`} />{f.text}
+                      <li key={f.text} className={`flex items-center gap-3 text-sm ${f.included ? "text-white/70" : "text-white/20"}`}>
+                        <Check className={`w-4 h-4 flex-shrink-0 ${f.included ? "text-cyan-400" : "text-white/10"}`} />{f.text}
                       </li>
                     ))}
                   </ul>
-                  <button onClick={() => setSelectedPlan(plan)} className={`block text-center py-3 rounded-xl font-semibold text-sm transition-all w-full ${plan.popular ? "btn-primary" : "btn-outline"}`}>
+                  <Link
+                    href="/register"
+                    className={`block text-center py-3 rounded-xl font-semibold text-sm transition-all w-full ${
+                      plan.popular
+                        ? "bg-cyan-500 hover:bg-cyan-400 text-black hover:shadow-lg hover:shadow-cyan-500/25"
+                        : "bg-white/5 border border-white/10 hover:border-white/20 text-white"
+                    }`}
+                  >
                     {plan.popular ? "Get Started Now" : "Choose Plan"}
-                  </button>
+                  </Link>
                 </div>
               );
             })}
@@ -157,16 +183,16 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="py-20 bg-zinc-50">
+      <section className="py-20 bg-[#0d1117] border-t border-b border-white/5">
         <div className="max-w-4xl mx-auto px-6 fade-up">
-          <h2 className="text-3xl font-bold text-zinc-900 font-[family-name:var(--font-heading)] text-center mb-12">
-            Plan <span className="gradient-text">comparison</span>
+          <h2 className="text-3xl font-bold text-white font-[family-name:var(--font-heading)] text-center mb-12">
+            Plan <span className="text-cyan-400">Comparison</span>
           </h2>
-          <div className="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm">
-            <div className="grid grid-cols-4 text-sm font-semibold border-b border-zinc-100">
-              <div className="p-4 text-zinc-500">Feature</div>
+          <div className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+            <div className="grid grid-cols-4 text-sm font-semibold border-b border-white/10">
+              <div className="p-4 text-white/40">Feature</div>
               {plans.map((p) => (
-                <div key={p.name} className={`p-4 text-center ${p.popular ? "text-blue-600 bg-blue-50/50" : "text-zinc-900"}`}>{p.name}</div>
+                <div key={p.name} className={`p-4 text-center ${p.popular ? "text-cyan-400 bg-cyan-500/5" : "text-white"}`}>{p.name}</div>
               ))}
             </div>
             {[
@@ -180,10 +206,10 @@ export default function PricingPage() {
               { label: "Modpack Installer", values: ["-", "Yes", "Yes"] },
               { label: "Dedicated IP", values: ["-", "-", "Yes"] },
             ].map((row, i) => (
-              <div key={row.label} className={`grid grid-cols-4 text-sm ${i % 2 === 0 ? "bg-zinc-50/50" : ""}`}>
-                <div className="p-4 text-zinc-600 font-medium">{row.label}</div>
+              <div key={row.label} className={`grid grid-cols-4 text-sm ${i % 2 === 0 ? "bg-white/[0.02]" : ""}`}>
+                <div className="p-4 text-white/50 font-medium">{row.label}</div>
                 {row.values.map((val, j) => (
-                  <div key={j} className={`p-4 text-center ${val === "-" ? "text-zinc-300" : "text-zinc-700"} ${plans[j].popular ? "bg-blue-50/30" : ""}`}>
+                  <div key={j} className={`p-4 text-center ${val === "-" ? "text-white/15" : "text-white/70"} ${plans[j].popular ? "bg-cyan-500/[0.03]" : ""}`}>
                     {val}
                   </div>
                 ))}
@@ -193,22 +219,31 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-[#0a0a0f]">
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-12 fade-up">
-            <h2 className="text-3xl font-bold text-zinc-900 font-[family-name:var(--font-heading)]">
-              Frequently asked <span className="gradient-text">questions</span>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-cyan-500/10 rounded-full mb-6 border border-cyan-500/20">
+              <span className="text-xs font-semibold text-cyan-400 tracking-wide uppercase">Help</span>
+            </div>
+            <h2 className="text-3xl font-bold text-white font-[family-name:var(--font-heading)]">
+              Frequently Asked Questions
             </h2>
           </div>
           <div className="space-y-3 stagger-children">
             {faqs.map((faq, i) => (
-              <div key={i} className="card-professional overflow-hidden cursor-pointer group" onClick={() => setOpenFaq(openFaq === i ? null : i)}>
+              <div
+                key={i}
+                className="rounded-xl border border-white/10 bg-white/5 cursor-pointer overflow-hidden hover:border-white/15 transition-all duration-300"
+                onClick={() => setOpenFaq(openFaq === i ? null : i)}
+              >
                 <div className="p-6 flex items-center justify-between">
-                  <h3 className="font-semibold text-zinc-900 pr-4 group-hover:text-blue-600 transition-colors">{faq.q}</h3>
-                  <ChevronDown className={`w-5 h-5 text-zinc-400 flex-shrink-0 transition-all duration-300 group-hover:text-blue-500 ${openFaq === i ? "rotate-180 text-blue-500" : ""}`} />
+                  <h3 className="font-semibold text-white pr-4">{faq.q}</h3>
+                  <ChevronDown
+                    className={`w-5 h-5 flex-shrink-0 transition-all duration-300 ${openFaq === i ? "rotate-180 text-cyan-400" : "text-white/30"}`}
+                  />
                 </div>
-                <div className={`transition-all duration-400 ease-in-out ${openFaq === i ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}>
-                  <div className="px-6 pb-6 text-sm text-zinc-500 leading-relaxed">{faq.a}</div>
+                <div className={`transition-all duration-300 ease-in-out ${openFaq === i ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}>
+                  <div className="px-6 pb-6 text-sm text-white/40 leading-relaxed">{faq.a}</div>
                 </div>
               </div>
             ))}
@@ -216,44 +251,23 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 aurora-bg" />
-        <div className="absolute inset-0 noise-overlay" />
+      <section className="py-20 bg-[#0a0a0f] relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 via-transparent to-cyan-500/5" />
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10 fade-up">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white font-[family-name:var(--font-heading)] mb-4">Still have questions?</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white font-[family-name:var(--font-heading)] mb-4">
+            Still have questions?
+          </h2>
           <p className="text-white/40 mb-8">Our support team is here to help you find the perfect plan.</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/contact" className="btn-primary text-base inline-flex items-center gap-2 group">
-              <span className="flex items-center gap-2">Contact Support<ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" /></span>
+            <Link href="/contact" className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-8 py-4 rounded-lg text-sm transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25">
+              Contact Support →
             </Link>
-            <Link href="/register" className="btn-secondary text-base">Start Free Trial</Link>
+            <Link href="/register" className="bg-white/5 border border-white/10 hover:border-white/20 text-white font-semibold px-8 py-4 rounded-lg text-sm transition-all duration-300">
+              Start Free Trial
+            </Link>
           </div>
         </div>
       </section>
-      <PublicFooter />
-
-      <Modal open={!!selectedPlan} onClose={() => setSelectedPlan(null)} title={selectedPlan ? `${selectedPlan.name} Plan` : ""} description={selectedPlan?.description} size="md">
-        {selectedPlan && (
-          <div className="space-y-6">
-            <div className="flex items-baseline gap-1">
-              <span className="text-4xl font-bold text-zinc-900 font-[family-name:var(--font-heading)]">${annual ? selectedPlan.priceAnnual : selectedPlan.priceMonthly}</span>
-              <span className="text-zinc-400">/mo</span>
-              {annual && <span className="text-xs text-green-600 font-semibold ml-2">Save 25%</span>}
-            </div>
-            <ul className="space-y-3">
-              {selectedPlan.features.filter(f => f.included).map((f) => (
-                <li key={f.text} className="flex items-center gap-3 text-sm text-zinc-700">
-                  <Check className="w-4 h-4 text-blue-600 flex-shrink-0" />{f.text}
-                </li>
-              ))}
-            </ul>
-            <div className="flex gap-3 pt-2">
-              <Link href="/register" className="btn-primary flex-1 text-center">Get Started with {selectedPlan.name}</Link>
-              <Button variant="ghost" className="flex-1" onClick={() => setSelectedPlan(null)}>Close</Button>
-            </div>
-          </div>
-        )}
-      </Modal>
-    </div>
+    </MarketingLayout>
   );
 }
