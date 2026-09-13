@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String?
+  name          String?
+  discordId     String?   @unique
+  discordAvatar String?
+  role          String    @default("USER")
+  balance       Float     @default(0)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  servers   Server[]
+  payments  Payment[]
+}
+
+model Node {
+  id         String   @id @default(cuid())
+  name       String
+  ip         String
+  port       Int      @default(25565)
+  daemonPort Int      @default(8443)
+  apiKey     String
+  maxRam     Int      @default(8192)
+  maxDisk    Int      @default(100000)
+  maxCpu     Int      @default(100)
+  totalSlots Int      @default(50)
+  status     String   @default("OFFLINE")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  servers Server[]
+}
+
+model Server {
+  id                String   @id @default(cuid())
+  name              String
+  userId            String
+  nodeId            String
+  dockerContainerId String?
+  status            String   @default("OFFLINE")
+  type              String   @default("java")
+  version           String   @default("1.20.4")
+  port              Int
+  allocatedRam      Int      @default(2048)
+  allocatedDisk     Int      @default(10240)
+  allocatedCpu      Int      @default(50)
+  jogVersion        String?  @default("paper")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  node    Node    @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+  backups Backup[]
+}
+
+model Payment {
+  id         String   @id @default(cuid())
+  userId     String
+  amount     Float
+  currency   String   @default("INR")
+  status     String   @default("PENDING")
+  proofUrl   String?
+  txId       String?
+  adminNote  String?
+  createdAt  DateTime @default(now())
+  verifiedAt DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Backup {
+  id        String   @id @default(cuid())
+  serverId  String
+  name      String
+  size      Int      @default(0)
+  createdAt DateTime @default(now())
+
+  server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+}

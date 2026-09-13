@@ -1,0 +1,23 @@
+# Caddyfile — Auto HTTPS reverse proxy for NotiX Cloud
+# Replace YOUR_DOMAIN with your actual domain (e.g., notixcloud.com)
+
+YOUR_DOMAIN {
+    reverse_proxy panel:3000
+
+    # Security headers
+    header {
+        X-Content-Type-Options nosniff
+        X-Frame-Options DENY
+        Referrer-Policy strict-origin-when-cross-origin
+        -Server
+    }
+
+    # Gzip compression
+    encode gzip
+
+    # Logging
+    log {
+        output file /var/log/caddy/access.log
+        format json
+    }
+}
