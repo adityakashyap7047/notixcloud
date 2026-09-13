@@ -15,7 +15,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid API key" }, { status: 401 });
     }
 
-    const { servers, stats } = await req.json();
+    const { servers } = await req.json();
 
     await db.node.update({
       where: { id: node.id },

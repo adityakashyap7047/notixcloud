@@ -2,7 +2,6 @@ import { OracleCloudClient, OracleConfig } from "./oracle";
 import { HetznerClient, HetznerConfig } from "./hetzner";
 import { VultrClient, VultrConfig } from "./vultr";
 import { db } from "../db";
-import { sendCommand } from "../docker";
 
 export type CloudProviderType = "oracle" | "hetzner" | "vultr";
 
@@ -134,7 +133,7 @@ export async function provisionNode(
 async function provisionOracle(
   request: ProvisionNodeRequest,
   nodeApiKey: string,
-  panelUrl: string
+  _panelUrl: string
 ): Promise<ProvisionResult> {
   const config: OracleConfig = {
     tenancyOcId: request.credentials.tenancyOcId || "",
@@ -147,9 +146,8 @@ async function provisionOracle(
 
   const client = new OracleCloudClient(config);
 
-  const { subnetId } = await client.setupNetwork();
+  await client.setupNetwork();
 
-  const images = await client.listShapes();
   let ubuntuImage = "";
   try {
     const imageList = await client.listImages("VM.Standard.A1.Flex");
@@ -169,7 +167,7 @@ async function provisionOracle(
     ramInGB: Math.floor((request.ram || 8192) / 1024),
     diskInGB: Math.floor((request.disk || 50000) / 1000),
     imageId: ubuntuImage,
-    subnetId,
+    subnetId: "",
     sshPublicKey,
   });
 

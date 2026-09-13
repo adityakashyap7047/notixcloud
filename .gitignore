@@ -32,6 +32,7 @@ pnpm-debug.log*
 
 # env files
 .env
+.env.production
 
 # vercel
 .vercel
@@ -43,3 +44,6 @@ next-env.d.ts
 # local dev
 prisma/dev.db
 dev.log
+
+# minecraft server data
+mc-data/

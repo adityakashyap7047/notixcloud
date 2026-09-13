@@ -2,8 +2,16 @@ node_modules
 .next
 .git
 .gitignore
-*.md
 .env
 .env.example
+.env.production
 prisma/dev.db
 tsconfig.tsbuildinfo
+mc-data
+DEPLOY-RAILWAY.md
+DEPLOY-ORACLE.md
+docker-compose.yml
+docker-compose.prod.yml
+Caddyfile
+scripts
+*.log

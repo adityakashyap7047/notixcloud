@@ -10,7 +10,7 @@ interface PlayerListProps {
   serverId?: string;
 }
 
-export function PlayerList({ serverId }: PlayerListProps) {
+export function PlayerList({ serverId: _serverId }: PlayerListProps) {
   const players: any[] = [];
 
   return (

@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { provisionNode, terminateNode } from "@/lib/cloud";
-import { db } from "@/lib/db";
 
 export async function POST(req: Request) {
   try {

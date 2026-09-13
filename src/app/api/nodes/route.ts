@@ -10,16 +10,32 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    if ((session.user as any).role !== "ADMIN") {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-    }
+    const isAdmin = (session.user as any).role === "ADMIN";
 
-    const nodes = await db.node.findMany({
-      include: {
-        _count: { select: { servers: true } },
-      },
-      orderBy: { createdAt: "desc" },
-    });
+    let nodes;
+    if (isAdmin) {
+      nodes = await db.node.findMany({
+        include: {
+          _count: { select: { servers: true } },
+        },
+        orderBy: { createdAt: "desc" },
+      });
+    } else {
+      nodes = await db.node.findMany({
+        select: {
+          id: true,
+          name: true,
+          ip: true,
+          port: true,
+          status: true,
+          maxRam: true,
+          maxDisk: true,
+          maxCpu: true,
+          totalSlots: true,
+        },
+        orderBy: { createdAt: "desc" },
+      });
+    }
 
     return NextResponse.json(nodes);
   } catch (error) {

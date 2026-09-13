@@ -24,7 +24,7 @@ export interface CloudInstance {
 
 export interface ProvisionRequest {
   name: string;
-  provider: "oracle" | "hetzper" | "vultr";
+  provider: "oracle" | "hetzner" | "vultr";
   region: string;
   ram: number;
   cpu: number;

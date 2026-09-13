@@ -1,16 +1,23 @@
 "use client";
 
+import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Layout } from "@/components/layout/layout";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { User, Lock, MessageCircle } from "lucide-react";
+import { User, Lock, MessageCircle, Check, ExternalLink } from "lucide-react";
 
 export default function ProfilePage() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordLoading, setPasswordLoading] = useState(false);
+  const [passwordResult, setPasswordResult] = useState<"success" | "error" | null>(null);
+  const [passwordError, setPasswordError] = useState("");
 
   if (status === "loading") {
     return (
@@ -26,6 +33,49 @@ export default function ProfilePage() {
     router.push("/login");
     return null;
   }
+
+  const handlePasswordChange = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPasswordLoading(true);
+    setPasswordResult(null);
+    setPasswordError("");
+
+    if (newPassword !== confirmPassword) {
+      setPasswordError("New passwords do not match");
+      setPasswordLoading(false);
+      return;
+    }
+
+    if (newPassword.length < 8) {
+      setPasswordError("Password must be at least 8 characters");
+      setPasswordLoading(false);
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/profile/password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ currentPassword, newPassword }),
+      });
+
+      if (res.ok) {
+        setPasswordResult("success");
+        setCurrentPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+      } else {
+        const data = await res.json();
+        setPasswordResult("error");
+        setPasswordError(data.error || "Failed to update password");
+      }
+    } catch {
+      setPasswordResult("error");
+      setPasswordError("An error occurred");
+    } finally {
+      setPasswordLoading(false);
+    }
+  };
 
   return (
     <Layout>
@@ -70,11 +120,13 @@ export default function ProfilePage() {
                   Member Since
                 </p>
                 <p className="text-sm text-slate-900">
-                  {new Date().toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
+                  {(session?.user as any)?.createdAt
+                    ? new Date((session!.user as any).createdAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })
+                    : "N/A"}
                 </p>
               </div>
             </CardContent>
@@ -88,26 +140,56 @@ export default function ProfilePage() {
               </div>
             </CardHeader>
             <CardContent>
-              <form className="space-y-4">
+              <form onSubmit={handlePasswordChange} className="space-y-4">
+                {passwordResult === "success" && (
+                  <div className="p-3 bg-green-50 border border-green-200 text-green-600 text-sm rounded-xl flex items-center gap-2">
+                    <Check className="w-4 h-4" /> Password updated successfully
+                  </div>
+                )}
+                {passwordResult === "error" && passwordError && (
+                  <div className="p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl">
+                    {passwordError}
+                  </div>
+                )}
                 <div className="space-y-2">
                   <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                     Current Password
                   </label>
-                  <Input type="password" placeholder="••••••••" />
+                  <Input
+                    type="password"
+                    placeholder="••••••••"
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                    required
+                  />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                     New Password
                   </label>
-                  <Input type="password" placeholder="••••••••" />
+                  <Input
+                    type="password"
+                    placeholder="••••••••"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    required
+                    minLength={8}
+                  />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                     Confirm New Password
                   </label>
-                  <Input type="password" placeholder="••••••••" />
+                  <Input
+                    type="password"
+                    placeholder="••••••••"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                    minLength={8}
+                  />
                 </div>
-                <Button type="submit" variant="primary">
+                <Button type="submit" variant="primary" loading={passwordLoading}>
                   Update Password
                 </Button>
               </form>
@@ -143,9 +225,14 @@ export default function ProfilePage() {
               ) : (
                 <div className="text-center py-4">
                   <p className="text-sm text-slate-500 mb-3">
-                    Connect your Discord account
+                    Connect your Discord account for quick login
                   </p>
-                  <Button variant="secondary" size="sm">
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => window.location.href = "/api/auth/signin/discord"}
+                  >
+                    <ExternalLink className="w-4 h-4 mr-1.5" />
                     Connect Discord
                   </Button>
                 </div>

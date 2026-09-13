@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { io, Socket } from "socket.io-client";
 
 interface LiveConsoleProps {
@@ -89,19 +89,6 @@ function stripAnsi(text: string): string {
   return text.replace(/\x1b\[[0-9;]*m/g, "");
 }
 
-function formatUptime(seconds: number): string {
-  const d = Math.floor(seconds / 86400);
-  const h = Math.floor((seconds % 86400) / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = seconds % 60;
-  const parts: string[] = [];
-  if (d > 0) parts.push(`${d}d`);
-  if (h > 0) parts.push(`${h}h`);
-  if (m > 0) parts.push(`${m}m`);
-  if (parts.length === 0) parts.push(`${s}s`);
-  return parts.join(" ");
-}
-
 export function LiveConsole({ serverId, status }: LiveConsoleProps) {
   const [lines, setLines] = useState<ConsoleLine[]>([]);
   const [command, setCommand] = useState("");
@@ -115,18 +102,6 @@ export function LiveConsole({ serverId, status }: LiveConsoleProps) {
   const consoleRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const lineIdRef = useRef(0);
-
-  // Stats
-  const [stats, setStats] = useState({
-    uptime: 0,
-    cpu: 0,
-    memory: 0,
-    memoryMax: 4096,
-    disk: 0,
-    diskMax: 30720,
-    netIn: 0,
-    netOut: 0,
-  });
 
   // Fetch container ID
   useEffect(() => {
@@ -151,6 +126,7 @@ export function LiveConsole({ serverId, status }: LiveConsoleProps) {
     const newSocket = io(window.location.origin, {
       path: "/api/socketio",
       transports: ["websocket", "polling"],
+      auth: { token: document.cookie.match(/next-auth.session-token=([^;]+)/)?.[1] || "" },
     });
 
     newSocket.on("connect", () => {
@@ -316,7 +292,6 @@ export function LiveConsole({ serverId, status }: LiveConsoleProps) {
     inputRef.current?.focus();
   }, []);
 
-  const isRunning = status === "RUNNING";
   const isDisabled = status === "OFFLINE" || status === "STOPPING";
 
   return (

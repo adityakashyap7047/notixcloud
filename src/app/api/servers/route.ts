@@ -3,9 +3,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import {
-  startServer,
-  stopServer,
-  restartServer,
   createServer as createDockerServer,
   getContainerStatus,
 } from "@/lib/docker";
@@ -113,6 +110,10 @@ export async function POST(req: Request) {
       });
     } catch (dockerError: any) {
       console.error("Docker creation failed:", dockerError);
+      return NextResponse.json(
+        { error: `Failed to create server container: ${dockerError.message}` },
+        { status: 500 }
+      );
     }
 
     const server = await db.server.create({

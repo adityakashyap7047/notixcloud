@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter, useParams } from "next/navigation";
 import { Layout } from "@/components/layout/layout";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { LiveConsole } from "@/components/console/live-console";
 import { FileManager } from "@/components/server/file-manager";
 import { PlayerList } from "@/components/server/player-list";
@@ -28,6 +26,7 @@ export default function ServerDetailPage() {
   const [activeTab, setActiveTab] = useState("console");
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -80,6 +79,21 @@ export default function ServerDetailPage() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleDelete = async () => {
+    if (!confirm("Are you sure you want to delete this server? This cannot be undone.")) return;
+    setDeleteLoading(true);
+    try {
+      const res = await fetch(`/api/servers/${server.id}`, { method: "DELETE" });
+      if (res.ok) {
+        router.push("/servers");
+      }
+    } catch (error) {
+      console.error("Failed to delete server:", error);
+    } finally {
+      setDeleteLoading(false);
+    }
+  };
+
   if (loading || !server) {
     return (
       <Layout>
@@ -100,9 +114,7 @@ export default function ServerDetailPage() {
 
   const isRunning = server.status === "RUNNING";
   const isStarting = server.status === "STARTING";
-  const isStopping = server.status === "STOPPING";
   const isOffline = server.status === "OFFLINE" || server.status === "ERROR";
-  const isBusy = isStarting || isStopping;
 
   const tabs = [
     {
@@ -277,7 +289,7 @@ export default function ServerDetailPage() {
                       d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"
                     />
                   </svg>
-                  {server.type === "java" ? "Minecraft Java" : "Minecraft Bedrock"}
+                  {server.type === "paper" || server.type === "spigot" || server.type === "purpur" || server.type === "vanilla" || server.type === "forge" || server.type === "fabric" ? "Minecraft Java" : "Minecraft Bedrock"}
                 </span>
                 <span>v{server.version}</span>
                 <span>{server.allocatedRam}MB RAM</span>
@@ -499,8 +511,12 @@ export default function ServerDetailPage() {
               </div>
               <div className="p-4 bg-red-500/5 rounded-xl border border-red-500/20">
                 <p className="text-sm font-medium text-red-400 mb-2">Danger Zone</p>
-                <button className="px-4 py-2 bg-red-600 hover:bg-red-500 text-white text-sm font-medium rounded-lg transition-colors">
-                  Delete Server
+                <button
+                  onClick={handleDelete}
+                  disabled={deleteLoading}
+                  className="px-4 py-2 bg-red-600 hover:bg-red-500 text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-50"
+                >
+                  {deleteLoading ? "Deleting..." : "Delete Server"}
                 </button>
               </div>
             </div>
