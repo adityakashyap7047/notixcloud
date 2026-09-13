@@ -14,9 +14,9 @@ const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET || "";
 const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
 
-const docker = new Docker({
-  socketPath: process.env.DOCKER_HOST || "/var/run/docker.sock",
-});
+const docker = process.env.DOCKER_HOST
+  ? new Docker({ socketPath: process.env.DOCKER_HOST })
+  : null;
 
 const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(",")

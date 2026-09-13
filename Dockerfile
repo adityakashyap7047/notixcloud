@@ -42,6 +42,18 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/server.ts ./server.ts
 COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
 
+# Copy node_modules needed by server.ts (not bundled in standalone)
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/socket.io ./node_modules/socket.io
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/dockerode ./node_modules/dockerode
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/jsonwebtoken ./node_modules/jsonwebtoken
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/@socket.io ./node_modules/@socket.io
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/engine.io ./node_modules/engine.io
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/engine.io-parser ./node_modules/engine.io-parser
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/socket.io-parser ./node_modules/socket.io-parser
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/socket.io-adapter ./node_modules/socket.io-adapter
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/ws ./node_modules/ws
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/@types ./node_modules/@types
+
 USER nextjs
 
 EXPOSE 3000
