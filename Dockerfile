@@ -52,4 +52,4 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["npx", "tsx", "server.ts"]
+CMD ["sh", "-c", "npx prisma generate && npx prisma db push && npx tsx server.ts"]
