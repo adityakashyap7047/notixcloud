@@ -87,6 +87,196 @@ function Hero() {
       <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-[200px]" />
       <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[180px]" />
 
+      {/* Minecraft scene - right side */}
+      <div className="absolute right-0 top-0 bottom-0 w-1/2 hidden lg:block overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0f] via-[#0a0a0f]/60 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-[#0a0a0f] z-10" />
+        <div className="absolute inset-0 z-0">
+          {/* Minecraft world SVG illustration */}
+          <svg viewBox="0 0 800 600" className="w-full h-full opacity-60" preserveAspectRatio="xMidYMid slice">
+            {/* Sky gradient */}
+            <defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#1a1a2e"/>
+                <stop offset="50%" stopColor="#16213e"/>
+                <stop offset="100%" stopColor="#0f3460"/>
+              </linearGradient>
+              <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#2d6a4f"/>
+                <stop offset="100%" stopColor="#1b4332"/>
+              </linearGradient>
+              <linearGradient id="dirt" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#8B4513"/>
+                <stop offset="100%" stopColor="#654321"/>
+              </linearGradient>
+            </defs>
+            <rect width="800" height="600" fill="url(#sky)"/>
+
+            {/* Stars */}
+            {[...Array(30)].map((_, i) => (
+              <circle key={`star-${i}`} cx={50 + (i * 23) % 700} cy={20 + (i * 17) % 150} r={0.5 + (i % 3) * 0.5} fill="white" opacity={0.3 + (i % 4) * 0.15}/>
+            ))}
+
+            {/* Moon */}
+            <circle cx="650" cy="80" r="35" fill="#f0f0f0" opacity="0.15"/>
+            <circle cx="660" cy="75" r="30" fill="#0a0a0f"/>
+
+            {/* Mountains background */}
+            <polygon points="0,350 100,200 200,300 300,180 400,280 500,220 600,300 700,190 800,350" fill="#1a1a2e" opacity="0.5"/>
+            <polygon points="0,380 150,250 250,320 400,230 550,310 700,240 800,380" fill="#16213e" opacity="0.4"/>
+
+            {/* Ground layers - Minecraft style blocks */}
+            {/* Grass layer */}
+            {[...Array(40)].map((_, i) => (
+              <rect key={`grass-${i}`} x={i * 20} y={380} width="20" height="8" fill="#40916c" opacity="0.8"/>
+            ))}
+            {/* Dirt layers */}
+            {[...Array(40)].map((_, i) => (
+              <g key={`dirt-block-${i}`}>
+                <rect x={i * 20} y={388} width="20" height="20" fill="#8B4513" opacity="0.7"/>
+                <rect x={i * 20} y={408} width="20" height="20" fill="#7a3b10" opacity="0.6"/>
+                <rect x={i * 20} y={428} width="20" height="20" fill="#654321" opacity="0.5"/>
+              </g>
+            ))}
+
+            {/* Trees - Minecraft style */}
+            {[120, 280, 450, 600, 720].map((x, i) => (
+              <g key={`tree-${i}`} opacity="0.7">
+                <rect x={x-2} y={310 - i*5} width="4" height="70" fill="#5D4037"/>
+                <rect x={x-18} y={280 - i*5} width="36" height="8" fill="#2d6a4f"/>
+                <rect x={x-14} y={272 - i*5} width="28" height="8" fill="#40916c"/>
+                <rect x={x-10} y={264 - i*5} width="20" height="8" fill="#2d6a4f"/>
+                <rect x={x-6} y={256 - i*5} width="12" height="8" fill="#40916c"/>
+              </g>
+            ))}
+
+            {/* Minecraft characters - blocky style */}
+            {/* Steve */}
+            <g transform="translate(350, 280)" opacity="0.8">
+              {/* Head */}
+              <rect x="0" y="0" width="16" height="16" fill="#8B6914" rx="1"/>
+              <rect x="3" y="4" width="3" height="3" fill="#4a3000"/>
+              <rect x="10" y="4" width="3" height="3" fill="#4a3000"/>
+              <rect x="5" y="10" width="6" height="2" fill="#4a3000"/>
+              {/* Body */}
+              <rect x="0" y="16" width="16" height="12" fill="#00bcd4" rx="1"/>
+              <rect x="6" y="18" width="4" height="8" fill="#8B6914"/>
+              {/* Arms */}
+              <rect x="-6" y="16" width="6" height="12" fill="#8B6914" rx="1"/>
+              <rect x="16" y="16" width="6" height="12" fill="#8B6914" rx="1"/>
+              {/* Legs */}
+              <rect x="0" y="28" width="7" height="12" fill="#3f51b5" rx="1"/>
+              <rect x="9" y="28" width="7" height="12" fill="#3f51b5" rx="1"/>
+              {/* Sword */}
+              <rect x="22" y="10" width="2" height="20" fill="#90a4ae" rx="1"/>
+              <rect x="18" y="14" width="10" height="3" fill="#795548" rx="1"/>
+            </g>
+
+            {/* Alex */}
+            <g transform="translate(420, 290)" opacity="0.75">
+              {/* Head */}
+              <rect x="0" y="0" width="16" height="16" fill="#D4A574" rx="1"/>
+              <rect x="3" y="4" width="3" height="3" fill="#4a3000"/>
+              <rect x="10" y="4" width="3" height="3" fill="#4a3000"/>
+              <rect x="5" y="10" width="6" height="2" fill="#c0392b"/>
+              {/* Hair */}
+              <rect x="-2" y="-2" width="6" height="10" fill="#D4760A" rx="1"/>
+              {/* Body */}
+              <rect x="0" y="16" width="16" height="12" fill="#4caf50" rx="1"/>
+              {/* Arms */}
+              <rect x="-4" y="16" width="4" height="12" fill="#D4A574" rx="1"/>
+              <rect x="16" y="16" width="4" height="12" fill="#D4A574" rx="1"/>
+              {/* Legs */}
+              <rect x="0" y="28" width="7" height="12" fill="#795548" rx="1"/>
+              <rect x="9" y="28" width="7" height="12" fill="#795548" rx="1"/>
+            </g>
+
+            {/* Creeper */}
+            <g transform="translate(250, 300)" opacity="0.7">
+              {/* Head */}
+              <rect x="0" y="0" width="16" height="16" fill="#4caf50" rx="1"/>
+              <rect x="3" y="4" width="3" height="3" fill="#1b5e20"/>
+              <rect x="10" y="4" width="3" height="3" fill="#1b5e20"/>
+              <rect x="6" y="10" width="4" height="6" fill="#1b5e20"/>
+              <rect x="4" y="12" width="2" height="4" fill="#1b5e20"/>
+              <rect x="10" y="12" width="2" height="4" fill="#1b5e20"/>
+              {/* Body */}
+              <rect x="0" y="16" width="16" height="16" fill="#66bb6a" rx="1"/>
+              {/* Legs */}
+              <rect x="0" y="32" width="6" height="8" fill="#4caf50" rx="1"/>
+              <rect x="10" y="32" width="6" height="8" fill="#4caf50" rx="1"/>
+            </g>
+
+            {/* Zombie */}
+            <g transform="translate(550, 295)" opacity="0.65">
+              {/* Head */}
+              <rect x="0" y="0" width="16" height="16" fill="#2e7d32" rx="1"/>
+              <rect x="3" y="4" width="3" height="3" fill="#1b5e20"/>
+              <rect x="10" y="4" width="3" height="3" fill="#1b5e20"/>
+              {/* Body */}
+              <rect x="0" y="16" width="16" height="12" fill="#1565c0" rx="1"/>
+              {/* Arms stretched forward */}
+              <rect x="-10" y="14" width="10" height="4" fill="#2e7d32" rx="1"/>
+              <rect x="16" y="14" width="10" height="4" fill="#2e7d32" rx="1"/>
+              {/* Legs */}
+              <rect x="0" y="28" width="7" height="12" fill="#1565c0" rx="1"/>
+              <rect x="9" y="28" width="7" height="12" fill="#1565c0" rx="1"/>
+            </g>
+
+            {/* Pig */}
+            <g transform="translate(180, 340)" opacity="0.6">
+              <rect x="0" y="0" width="20" height="12" fill="#f48fb1" rx="2"/>
+              <rect x="-4" y="2" width="6" height="8" fill="#f48fb1" rx="1"/>
+              <rect x="18" y="2" width="6" height="8" fill="#f48fb1" rx="1"/>
+              <rect x="2" y="2" width="3" height="3" fill="#880e4f"/>
+              <rect x="15" y="2" width="3" height="3" fill="#880e4f"/>
+              <rect x="8" y="6" width="4" height="3" fill="#ec407a" rx="1"/>
+              {/* Legs */}
+              <rect x="2" y="12" width="3" height="4" fill="#f48fb1"/>
+              <rect x="15" y="12" width="3" height="4" fill="#f48fb1"/>
+            </g>
+
+            {/* Chicken */}
+            <g transform="translate(680, 350)" opacity="0.6">
+              <rect x="0" y="0" width="8" height="8" fill="white" rx="1"/>
+              <rect x="-2" y="2" width="4" height="4" fill="white" rx="1"/>
+              <rect x="6" y="2" width="4" height="4" fill="#f44336"/>
+              <rect x="2" y="2" width="2" height="2" fill="#212121"/>
+              <rect x="2" y="6" width="4" height="2" fill="#f44336"/>
+              {/* Legs */}
+              <rect x="2" y="8" width="1" height="4" fill="#ff9800"/>
+              <rect x="5" y="8" width="1" height="4" fill="#ff9800"/>
+            </g>
+
+            {/* Water */}
+            {[0, 60, 120, 180, 240, 300, 360, 420, 480, 540, 600, 660, 720].map((x, i) => (
+              <rect key={`water-${i}`} x={x} y={450} width="60" height="150" fill="#1565c0" opacity="0.3"/>
+            ))}
+
+            {/* Cloud blocks */}
+            {[100, 300, 500].map((x, i) => (
+              <g key={`cloud-${i}`} opacity="0.15">
+                <rect x={x} y={40 + i*20} width="40" height="12" fill="white" rx="2"/>
+                <rect x={x+10} y={32 + i*20} width="30" height="12" fill="white" rx="2"/>
+                <rect x={x+5} y={26 + i*20} width="20" height="12" fill="white" rx="2"/>
+              </g>
+            ))}
+          </svg>
+        </div>
+
+        {/* Cloud deploy icon overlay */}
+        <div className="absolute top-1/3 right-[15%] z-20 animate-float-slow">
+          <div className="relative">
+            <div className="w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-24 h-24 bg-cyan-500/20 border border-cyan-500/30 rounded-3xl flex items-center justify-center backdrop-blur-sm">
+                <Cloud className="w-12 h-12 text-cyan-400" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {[...Array(8)].map((_, i) => (
         <div
           key={i}
@@ -138,7 +328,7 @@ function Hero() {
           </p>
 
           <div
-            className="flex flex-wrap gap-4 mb-16"
+            className="flex flex-wrap gap-4 mb-8"
             style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both" }}
           >
             <Link href="/register" className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-8 py-4 rounded-lg text-sm transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 hover:-translate-y-0.5 inline-flex items-center gap-2">
@@ -150,7 +340,7 @@ function Hero() {
           </div>
 
           <div
-            className="flex flex-wrap gap-6"
+            className="flex flex-wrap gap-4 mb-12"
             style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both" }}
           >
             {[
@@ -165,10 +355,37 @@ function Hero() {
               </div>
             ))}
           </div>
+
+          {/* Quick Deploy section */}
+          <div style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both" }}>
+            <p className="text-[10px] text-white/25 font-bold tracking-[0.2em] uppercase mb-3">Quick Deploy</p>
+            <div className="flex flex-wrap gap-3">
+              {[
+                { title: "Minecraft", subtitle: "Instant Setup", icon: <Gamepad2 className="w-4 h-4 text-cyan-400" />, href: "/pricing" },
+                { title: "Among Us", subtitle: "Custom Maps", icon: <Users className="w-4 h-4 text-cyan-400" />, href: "/pricing" },
+                { title: "Cloud VPS", subtitle: "Root Access", icon: <Cloud className="w-4 h-4 text-cyan-400" />, href: "/pricing" },
+                { title: "Web Hosting", subtitle: "LiteSpeed", icon: <Globe2 className="w-4 h-4 text-cyan-400" />, href: "/pricing" },
+              ].map((item) => (
+                <Link
+                  key={item.title}
+                  href={item.href}
+                  className="flex items-center gap-3 px-4 py-3 bg-white/5 border border-white/10 rounded-xl hover:border-cyan-500/30 transition-all duration-300"
+                >
+                  <div className="w-8 h-8 bg-cyan-500/10 rounded-lg flex items-center justify-center">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <div className="text-sm font-semibold text-white">{item.title}</div>
+                    <div className="text-[10px] text-white/40">{item.subtitle}</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="absolute bottom-10 right-10 hidden lg:flex flex-col items-center gap-2">
+      <div className="absolute bottom-10 right-10 hidden lg:flex flex-col items-center gap-2 z-20">
         <span className="text-white/15 text-xs font-medium tracking-widest rotate-90 mb-6">SCROLL</span>
         <div className="w-5 h-8 border-2 border-white/15 rounded-full flex justify-center pt-1.5">
           <div className="w-1 h-2 bg-white/30 rounded-full animate-bounce" />
