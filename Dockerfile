@@ -20,7 +20,7 @@ RUN npx prisma generate
 
 RUN npm run build
 
-# Production image, copy all the files and run next
+# Production image, copy all the files and run with custom server
 FROM base AS runner
 WORKDIR /app
 
@@ -36,9 +36,10 @@ COPY --from=builder /app/public ./public
 RUN mkdir .next
 RUN chown nextjs:nodejs .next
 
-# Automatically leverage output traces to reduce image size
+# Copy standalone and custom server
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/server.ts ./server.ts
 
 USER nextjs
 

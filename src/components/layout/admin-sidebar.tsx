@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, Users, Server, CreditCard, Globe } from "lucide-react";
+import { LayoutDashboard, Users, Server, CreditCard, Globe, Cloud } from "lucide-react";
 
 const adminNavItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -11,6 +11,7 @@ const adminNavItems = [
   { href: "/admin/servers", label: "Servers", icon: Server },
   { href: "/admin/payments", label: "Payments", icon: CreditCard },
   { href: "/admin/nodes", label: "Nodes", icon: Globe },
+  { href: "/admin/cloud", label: "Cloud Providers", icon: Cloud },
 ];
 
 export function AdminSidebar() {
