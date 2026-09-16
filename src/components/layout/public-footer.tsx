@@ -18,38 +18,41 @@ export function PublicFooter() {
   };
 
   return (
-    <footer className="bg-zinc-950 relative overflow-hidden">
-      <div className="absolute inset-0 hero-grid opacity-30" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-blue-600/5 rounded-full blur-[120px]" />
+    <footer className="relative overflow-hidden bg-[#060610]">
+      <div className="absolute inset-0 hero-grid opacity-20" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-cyan-500/5 rounded-full blur-[150px]" />
+      <div className="absolute bottom-0 left-1/4 w-[400px] h-[300px] bg-violet-500/5 rounded-full blur-[120px]" />
+
+      <div className="glow-separator" />
 
       <div className="max-w-7xl mx-auto px-6 pt-20 pb-10 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mb-16">
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2.5 mb-5">
-              <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
+            <Link href="/" className="flex items-center gap-2.5 mb-5 group">
+              <div className="w-9 h-9 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-all duration-300 group-hover:scale-105">
                 <Cloud className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold text-white font-[family-name:var(--font-heading)]">
-                NotiX<span className="text-blue-400">Cloud</span>
+                NotiX<span className="text-cyan-400">Cloud</span>
               </span>
             </Link>
-            <p className="text-sm text-zinc-400 leading-relaxed mb-8 max-w-sm">
+            <p className="text-sm text-white/40 leading-relaxed mb-8 max-w-sm">
               Premium Minecraft server hosting with instant setup, enterprise-grade infrastructure, and world-class support. Built by gamers, for gamers.
             </p>
 
             <div className="mb-8">
               <h4 className="text-sm font-bold text-white mb-3 tracking-wide">Stay updated</h4>
-              <p className="text-xs text-zinc-500 mb-3">New features, tips, and updates. No spam.</p>
+              <p className="text-xs text-white/30 mb-3">New features, tips, and updates. No spam.</p>
               <form onSubmit={handleSubscribe} className="flex gap-2">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/25 transition-all"
+                  className="flex-1 bg-white/5 border border-white/8 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/25 transition-all backdrop-blur-sm"
                   required
                 />
-                <button type="submit" className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-sm font-semibold rounded-xl hover:shadow-lg hover:shadow-blue-600/25 transition-all duration-300 hover:-translate-y-0.5 whitespace-nowrap">
+                <button type="submit" className="px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-cyan-600 text-black text-sm font-bold rounded-xl hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 hover:-translate-y-0.5 whitespace-nowrap">
                   {subscribed ? "Subscribed!" : "Subscribe"}
                 </button>
               </form>
@@ -64,7 +67,7 @@ export function PublicFooter() {
                 <a
                   key={social.name}
                   href="#"
-                  className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                  className="w-9 h-9 rounded-xl bg-white/5 border border-white/8 flex items-center justify-center text-white/40 hover:text-cyan-400 hover:bg-white/8 hover:border-cyan-500/20 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10"
                   title={social.name}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -85,7 +88,7 @@ export function PublicFooter() {
               <ul className="space-y-3">
                 {col.links.map((link) => (
                   <li key={link.label}>
-                    <Link href={link.href} className="text-sm text-zinc-400 hover:text-blue-400 transition-colors duration-300">
+                    <Link href={link.href} className="text-sm text-white/40 hover:text-cyan-400 transition-colors duration-300">
                       {link.label}
                     </Link>
                   </li>
@@ -95,10 +98,12 @@ export function PublicFooter() {
           ))}
         </div>
 
-        <div className="border-t border-zinc-800/80 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-zinc-500">&copy; {new Date().getFullYear()} NotiX Cloud. All rights reserved.</p>
+        <div className="glow-separator mb-8" />
+
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-white/30">&copy; {new Date().getFullYear()} NotiX Cloud. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <span className="text-xs text-zinc-600">Built with care for the Minecraft community</span>
+            <span className="text-xs text-white/20">Built with care for the Minecraft community</span>
           </div>
         </div>
       </div>

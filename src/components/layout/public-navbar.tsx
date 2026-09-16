@@ -35,21 +35,17 @@ export function PublicNavbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled || !isHome
-            ? "bg-white/95 backdrop-blur-xl shadow-[0_1px_30px_rgba(0,0,0,0.06)] border-b border-zinc-100/80"
+            ? "glass-nav scrolled"
             : "bg-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20 group-hover:shadow-blue-600/40 transition-all duration-300 group-hover:scale-105">
+            <div className="w-9 h-9 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-all duration-300 group-hover:scale-105 group-hover:rotate-3">
               <Cloud className="w-5 h-5 text-white" />
             </div>
-            <span
-              className={`text-xl font-bold font-[family-name:var(--font-heading)] tracking-tight transition-colors duration-300 ${
-                scrolled || !isHome ? "text-zinc-900" : "text-white"
-              }`}
-            >
-              NotiX<span className="text-blue-500">Cloud</span>
+            <span className="text-xl font-bold font-[family-name:var(--font-heading)] tracking-tight text-white transition-all duration-300">
+              NotiX<span className="text-cyan-400">Cloud</span>
             </span>
           </Link>
 
@@ -58,14 +54,8 @@ export function PublicNavbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium px-3 py-2 rounded-lg transition-all duration-300 ${
-                  pathname === link.href
-                    ? scrolled || !isHome
-                      ? "text-blue-600 bg-blue-50"
-                      : "text-white bg-white/10"
-                    : scrolled || !isHome
-                    ? "text-zinc-500 hover:text-blue-600 hover:bg-zinc-50"
-                    : "text-white/60 hover:text-white hover:bg-white/10"
+                className={`nav-glass-link ${
+                  pathname === link.href ? "active" : ""
                 }`}
               >
                 {link.label}
@@ -76,26 +66,20 @@ export function PublicNavbar() {
           <div className="flex items-center gap-3">
             <Link
               href="/login"
-              className={`text-sm font-semibold px-4 py-2 rounded-lg transition-all duration-300 hidden sm:block ${
-                scrolled || !isHome
-                  ? "text-zinc-600 hover:bg-zinc-100"
-                  : "text-white/70 hover:text-white hover:bg-white/10"
-              }`}
+              className="text-sm font-medium px-4 py-2 rounded-xl text-white/60 hover:text-white hover:bg-white/6 transition-all duration-300 hidden sm:block"
             >
               Log In
             </Link>
             <Link
               href="/register"
-              className="text-sm font-semibold px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:shadow-lg hover:shadow-blue-600/25 transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0"
+              className="text-sm font-bold px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-cyan-600 text-black rounded-xl hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0"
             >
               Get Started
             </Link>
 
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className={`md:hidden p-2 rounded-lg transition-colors ${
-                scrolled || !isHome ? "text-zinc-700 hover:bg-zinc-100" : "text-white hover:bg-white/10"
-              }`}
+              className="md:hidden p-2 rounded-xl text-white/60 hover:text-white hover:bg-white/6 transition-colors"
             >
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -105,18 +89,18 @@ export function PublicNavbar() {
 
       {mobileOpen && (
         <div className="fixed inset-0 z-40 md:hidden">
-          <div className="absolute inset-0 bg-black/50" onClick={() => setMobileOpen(false)} />
-          <div className="absolute top-0 right-0 w-72 h-full bg-white shadow-2xl p-6 pt-20">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
+          <div className="absolute top-0 right-0 w-72 h-full bg-[#0a0a14]/95 backdrop-blur-2xl border-l border-white/5 shadow-2xl p-6 pt-20">
             <div className="space-y-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`block px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${
+                  className={`block px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${
                     pathname === link.href
-                      ? "text-blue-600 bg-blue-50"
-                      : "text-zinc-700 hover:bg-zinc-50"
+                      ? "text-cyan-400 bg-cyan-500/10"
+                      : "text-white/60 hover:text-white hover:bg-white/5"
                   }`}
                 >
                   {link.label}
@@ -124,10 +108,10 @@ export function PublicNavbar() {
               ))}
             </div>
             <div className="mt-6 space-y-3">
-              <Link href="/login" onClick={() => setMobileOpen(false)} className="block text-center py-3 rounded-xl border border-zinc-200 text-zinc-700 font-semibold text-sm hover:bg-zinc-50 transition-colors">
+              <Link href="/login" onClick={() => setMobileOpen(false)} className="block text-center py-3 rounded-xl border border-white/10 text-white/70 font-semibold text-sm hover:bg-white/5 hover:border-white/20 transition-all duration-300">
                 Log In
               </Link>
-              <Link href="/register" onClick={() => setMobileOpen(false)} className="block text-center py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold text-sm hover:shadow-lg transition-all">
+              <Link href="/register" onClick={() => setMobileOpen(false)} className="block text-center py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 text-black font-bold text-sm hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300">
                 Get Started
               </Link>
             </div>

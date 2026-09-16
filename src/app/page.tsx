@@ -4,12 +4,12 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { MarketingLayout } from "@/components/layout/marketing-layout";
 import {
-  Shield, Zap, HardDrive, Users, Globe, Cpu, Headphones,
-  CreditCard, Smartphone, Landmark, Wallet, Rocket, BarChart3,
+  Shield, Zap, HardDrive, Users, Cpu, Headphones,
+  CreditCard, Rocket, BarChart3,
   CheckCircle, Server, Gamepad2, Bot, Cloud, Globe2, Calculator,
-  MessageCircle, ArrowRight, ChevronDown, Activity, Clock,
+  MessageCircle, ArrowRight, ChevronDown, Activity,
   ShieldCheck, Banknote, ArrowUpRight, CircuitBoard, Wifi,
-  Database, Lock, Gauge,
+  Database, Lock,
 } from "lucide-react";
 
 function useScrollAnimation() {
@@ -81,206 +81,25 @@ function ScrollProgressBar() {
 
 function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#0a0a0f]">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-[#0d1117] to-[#0a0a0f]" />
-      <div className="absolute inset-0 hero-grid opacity-40" />
-      <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-[200px]" />
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[180px]" />
-
-      {/* Minecraft scene - right side */}
-      <div className="absolute right-0 top-0 bottom-0 w-1/2 hidden lg:block overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0f] via-[#0a0a0f]/60 to-transparent z-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-[#0a0a0f] z-10" />
-        <div className="absolute inset-0 z-0">
-          {/* Minecraft world SVG illustration */}
-          <svg viewBox="0 0 800 600" className="w-full h-full opacity-60" preserveAspectRatio="xMidYMid slice">
-            {/* Sky gradient */}
-            <defs>
-              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#1a1a2e"/>
-                <stop offset="50%" stopColor="#16213e"/>
-                <stop offset="100%" stopColor="#0f3460"/>
-              </linearGradient>
-              <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#2d6a4f"/>
-                <stop offset="100%" stopColor="#1b4332"/>
-              </linearGradient>
-              <linearGradient id="dirt" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#8B4513"/>
-                <stop offset="100%" stopColor="#654321"/>
-              </linearGradient>
-            </defs>
-            <rect width="800" height="600" fill="url(#sky)"/>
-
-            {/* Stars */}
-            {[...Array(30)].map((_, i) => (
-              <circle key={`star-${i}`} cx={50 + (i * 23) % 700} cy={20 + (i * 17) % 150} r={0.5 + (i % 3) * 0.5} fill="white" opacity={0.3 + (i % 4) * 0.15}/>
-            ))}
-
-            {/* Moon */}
-            <circle cx="650" cy="80" r="35" fill="#f0f0f0" opacity="0.15"/>
-            <circle cx="660" cy="75" r="30" fill="#0a0a0f"/>
-
-            {/* Mountains background */}
-            <polygon points="0,350 100,200 200,300 300,180 400,280 500,220 600,300 700,190 800,350" fill="#1a1a2e" opacity="0.5"/>
-            <polygon points="0,380 150,250 250,320 400,230 550,310 700,240 800,380" fill="#16213e" opacity="0.4"/>
-
-            {/* Ground layers - Minecraft style blocks */}
-            {/* Grass layer */}
-            {[...Array(40)].map((_, i) => (
-              <rect key={`grass-${i}`} x={i * 20} y={380} width="20" height="8" fill="#40916c" opacity="0.8"/>
-            ))}
-            {/* Dirt layers */}
-            {[...Array(40)].map((_, i) => (
-              <g key={`dirt-block-${i}`}>
-                <rect x={i * 20} y={388} width="20" height="20" fill="#8B4513" opacity="0.7"/>
-                <rect x={i * 20} y={408} width="20" height="20" fill="#7a3b10" opacity="0.6"/>
-                <rect x={i * 20} y={428} width="20" height="20" fill="#654321" opacity="0.5"/>
-              </g>
-            ))}
-
-            {/* Trees - Minecraft style */}
-            {[120, 280, 450, 600, 720].map((x, i) => (
-              <g key={`tree-${i}`} opacity="0.7">
-                <rect x={x-2} y={310 - i*5} width="4" height="70" fill="#5D4037"/>
-                <rect x={x-18} y={280 - i*5} width="36" height="8" fill="#2d6a4f"/>
-                <rect x={x-14} y={272 - i*5} width="28" height="8" fill="#40916c"/>
-                <rect x={x-10} y={264 - i*5} width="20" height="8" fill="#2d6a4f"/>
-                <rect x={x-6} y={256 - i*5} width="12" height="8" fill="#40916c"/>
-              </g>
-            ))}
-
-            {/* Minecraft characters - blocky style */}
-            {/* Steve */}
-            <g transform="translate(350, 280)" opacity="0.8">
-              {/* Head */}
-              <rect x="0" y="0" width="16" height="16" fill="#8B6914" rx="1"/>
-              <rect x="3" y="4" width="3" height="3" fill="#4a3000"/>
-              <rect x="10" y="4" width="3" height="3" fill="#4a3000"/>
-              <rect x="5" y="10" width="6" height="2" fill="#4a3000"/>
-              {/* Body */}
-              <rect x="0" y="16" width="16" height="12" fill="#00bcd4" rx="1"/>
-              <rect x="6" y="18" width="4" height="8" fill="#8B6914"/>
-              {/* Arms */}
-              <rect x="-6" y="16" width="6" height="12" fill="#8B6914" rx="1"/>
-              <rect x="16" y="16" width="6" height="12" fill="#8B6914" rx="1"/>
-              {/* Legs */}
-              <rect x="0" y="28" width="7" height="12" fill="#3f51b5" rx="1"/>
-              <rect x="9" y="28" width="7" height="12" fill="#3f51b5" rx="1"/>
-              {/* Sword */}
-              <rect x="22" y="10" width="2" height="20" fill="#90a4ae" rx="1"/>
-              <rect x="18" y="14" width="10" height="3" fill="#795548" rx="1"/>
-            </g>
-
-            {/* Alex */}
-            <g transform="translate(420, 290)" opacity="0.75">
-              {/* Head */}
-              <rect x="0" y="0" width="16" height="16" fill="#D4A574" rx="1"/>
-              <rect x="3" y="4" width="3" height="3" fill="#4a3000"/>
-              <rect x="10" y="4" width="3" height="3" fill="#4a3000"/>
-              <rect x="5" y="10" width="6" height="2" fill="#c0392b"/>
-              {/* Hair */}
-              <rect x="-2" y="-2" width="6" height="10" fill="#D4760A" rx="1"/>
-              {/* Body */}
-              <rect x="0" y="16" width="16" height="12" fill="#4caf50" rx="1"/>
-              {/* Arms */}
-              <rect x="-4" y="16" width="4" height="12" fill="#D4A574" rx="1"/>
-              <rect x="16" y="16" width="4" height="12" fill="#D4A574" rx="1"/>
-              {/* Legs */}
-              <rect x="0" y="28" width="7" height="12" fill="#795548" rx="1"/>
-              <rect x="9" y="28" width="7" height="12" fill="#795548" rx="1"/>
-            </g>
-
-            {/* Creeper */}
-            <g transform="translate(250, 300)" opacity="0.7">
-              {/* Head */}
-              <rect x="0" y="0" width="16" height="16" fill="#4caf50" rx="1"/>
-              <rect x="3" y="4" width="3" height="3" fill="#1b5e20"/>
-              <rect x="10" y="4" width="3" height="3" fill="#1b5e20"/>
-              <rect x="6" y="10" width="4" height="6" fill="#1b5e20"/>
-              <rect x="4" y="12" width="2" height="4" fill="#1b5e20"/>
-              <rect x="10" y="12" width="2" height="4" fill="#1b5e20"/>
-              {/* Body */}
-              <rect x="0" y="16" width="16" height="16" fill="#66bb6a" rx="1"/>
-              {/* Legs */}
-              <rect x="0" y="32" width="6" height="8" fill="#4caf50" rx="1"/>
-              <rect x="10" y="32" width="6" height="8" fill="#4caf50" rx="1"/>
-            </g>
-
-            {/* Zombie */}
-            <g transform="translate(550, 295)" opacity="0.65">
-              {/* Head */}
-              <rect x="0" y="0" width="16" height="16" fill="#2e7d32" rx="1"/>
-              <rect x="3" y="4" width="3" height="3" fill="#1b5e20"/>
-              <rect x="10" y="4" width="3" height="3" fill="#1b5e20"/>
-              {/* Body */}
-              <rect x="0" y="16" width="16" height="12" fill="#1565c0" rx="1"/>
-              {/* Arms stretched forward */}
-              <rect x="-10" y="14" width="10" height="4" fill="#2e7d32" rx="1"/>
-              <rect x="16" y="14" width="10" height="4" fill="#2e7d32" rx="1"/>
-              {/* Legs */}
-              <rect x="0" y="28" width="7" height="12" fill="#1565c0" rx="1"/>
-              <rect x="9" y="28" width="7" height="12" fill="#1565c0" rx="1"/>
-            </g>
-
-            {/* Pig */}
-            <g transform="translate(180, 340)" opacity="0.6">
-              <rect x="0" y="0" width="20" height="12" fill="#f48fb1" rx="2"/>
-              <rect x="-4" y="2" width="6" height="8" fill="#f48fb1" rx="1"/>
-              <rect x="18" y="2" width="6" height="8" fill="#f48fb1" rx="1"/>
-              <rect x="2" y="2" width="3" height="3" fill="#880e4f"/>
-              <rect x="15" y="2" width="3" height="3" fill="#880e4f"/>
-              <rect x="8" y="6" width="4" height="3" fill="#ec407a" rx="1"/>
-              {/* Legs */}
-              <rect x="2" y="12" width="3" height="4" fill="#f48fb1"/>
-              <rect x="15" y="12" width="3" height="4" fill="#f48fb1"/>
-            </g>
-
-            {/* Chicken */}
-            <g transform="translate(680, 350)" opacity="0.6">
-              <rect x="0" y="0" width="8" height="8" fill="white" rx="1"/>
-              <rect x="-2" y="2" width="4" height="4" fill="white" rx="1"/>
-              <rect x="6" y="2" width="4" height="4" fill="#f44336"/>
-              <rect x="2" y="2" width="2" height="2" fill="#212121"/>
-              <rect x="2" y="6" width="4" height="2" fill="#f44336"/>
-              {/* Legs */}
-              <rect x="2" y="8" width="1" height="4" fill="#ff9800"/>
-              <rect x="5" y="8" width="1" height="4" fill="#ff9800"/>
-            </g>
-
-            {/* Water */}
-            {[0, 60, 120, 180, 240, 300, 360, 420, 480, 540, 600, 660, 720].map((x, i) => (
-              <rect key={`water-${i}`} x={x} y={450} width="60" height="150" fill="#1565c0" opacity="0.3"/>
-            ))}
-
-            {/* Cloud blocks */}
-            {[100, 300, 500].map((x, i) => (
-              <g key={`cloud-${i}`} opacity="0.15">
-                <rect x={x} y={40 + i*20} width="40" height="12" fill="white" rx="2"/>
-                <rect x={x+10} y={32 + i*20} width="30" height="12" fill="white" rx="2"/>
-                <rect x={x+5} y={26 + i*20} width="20" height="12" fill="white" rx="2"/>
-              </g>
-            ))}
-          </svg>
-        </div>
-
-        {/* Cloud deploy icon overlay */}
-        <div className="absolute top-1/3 right-[15%] z-20 animate-float-slow">
-          <div className="relative">
-            <div className="w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-24 h-24 bg-cyan-500/20 border border-cyan-500/30 rounded-3xl flex items-center justify-center backdrop-blur-sm">
-                <Cloud className="w-12 h-12 text-cyan-400" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <section className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Background Video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        src="/main-page.mp4"
+      />
+      {/* Dark overlays to keep text legible */}
+      <div className="absolute inset-0 bg-black/60 z-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a14]/90 via-[#0a0a14]/70 to-transparent z-[2]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a14] via-transparent to-[#0a0a14]/80 z-[2]" />
 
       {[...Array(8)].map((_, i) => (
         <div
           key={i}
-          className="particle"
+          className="particle z-[3]"
           style={{
             left: `${10 + i * 10}%`,
             top: `${15 + (i % 4) * 20}%`,
@@ -296,7 +115,7 @@ function Hero() {
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-24">
         <div className="max-w-4xl">
           <div
-            className="inline-flex items-center gap-2.5 px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full mb-8"
+            className="inline-flex items-center gap-2.5 px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/8 rounded-full mb-8"
             style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both" }}
           >
             <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
@@ -309,19 +128,19 @@ function Hero() {
           >
             NOTIX CLOUD
             <br />
-            <span className="text-cyan-400">WHERE CUSTOMERS</span>
+            <span className="gradient-text">WHERE CUSTOMERS</span>
             <br />
-            <span className="text-cyan-400 underline decoration-cyan-400/30 underline-offset-8">COME FIRST</span>
+            <span className="gradient-text hero-underline">COME FIRST</span>
           </h1>
 
           <div className="flex items-center gap-2 mb-6" style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both" }}>
             <span className="text-cyan-400 text-lg font-semibold">&gt;</span>
-            <span className="text-white/70 text-lg">High Performance VPS Hosting</span>
+            <span className="text-white/60 text-lg">High Performance VPS Hosting</span>
             <span className="w-0.5 h-5 bg-cyan-400 animate-pulse" />
           </div>
 
           <p
-            className="text-base text-white/30 max-w-xl mb-10 leading-relaxed"
+            className="text-base text-white/35 max-w-xl mb-10 leading-relaxed"
             style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both" }}
           >
             Experience the raw power of dedicated Ryzen infrastructure. Optimized for Minecraft, Discord Bots, Web, and VPS. No lag. No excuses.
@@ -331,10 +150,10 @@ function Hero() {
             className="flex flex-wrap gap-4 mb-8"
             style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both" }}
           >
-            <Link href="/register" className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-8 py-4 rounded-lg text-sm transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 hover:-translate-y-0.5 inline-flex items-center gap-2">
+            <Link href="/register" className="bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-black font-bold px-8 py-4 rounded-xl text-sm transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 hover:-translate-y-0.5 inline-flex items-center gap-2">
               DEPLOY SERVER <ArrowUpRight className="w-4 h-4" />
             </Link>
-            <Link href="/features" className="bg-white/5 border border-white/10 hover:border-white/20 text-white font-semibold px-8 py-4 rounded-lg text-sm transition-all duration-300 hover:-translate-y-0.5 inline-flex items-center gap-2">
+            <Link href="/features" className="bg-white/5 border border-white/10 hover:border-cyan-500/30 text-white font-semibold px-8 py-4 rounded-xl text-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/8 inline-flex items-center gap-2 backdrop-blur-sm">
               <Calculator className="w-4 h-4" /> RESOURCE CALCULATOR
             </Link>
           </div>
@@ -349,7 +168,7 @@ function Hero() {
               { icon: <Rocket className="w-4 h-4 text-cyan-400" />, text: "Instant Deploy" },
               { icon: <Users className="w-4 h-4 text-cyan-400" />, text: "200+ Users" },
             ].map((item) => (
-              <div key={item.text} className="flex items-center gap-2.5 text-sm text-white/40 bg-white/5 px-4 py-2 rounded-lg border border-white/5">
+              <div key={item.text} className="flex items-center gap-2.5 text-sm text-white/40 bg-white/5 px-4 py-2 rounded-xl border border-white/6 backdrop-blur-sm">
                 {item.icon}
                 <span>{item.text}</span>
               </div>
@@ -369,9 +188,9 @@ function Hero() {
                 <Link
                   key={item.title}
                   href={item.href}
-                  className="flex items-center gap-3 px-4 py-3 bg-white/5 border border-white/10 rounded-xl hover:border-cyan-500/30 transition-all duration-300"
+                  className="flex items-center gap-3 px-4 py-3 glass-card-dark rounded-xl hover:border-cyan-500/20 transition-all duration-300 group"
                 >
-                  <div className="w-8 h-8 bg-cyan-500/10 rounded-lg flex items-center justify-center">
+                  <div className="w-8 h-8 bg-cyan-500/10 rounded-lg flex items-center justify-center group-hover:bg-cyan-500/15 transition-colors">
                     {item.icon}
                   </div>
                   <div>
@@ -385,10 +204,10 @@ function Hero() {
         </div>
       </div>
 
-      <div className="absolute bottom-10 right-10 hidden lg:flex flex-col items-center gap-2 z-20">
+      <div className="absolute bottom-10 right-10 hidden lg:flex flex-col items-center gap-2 z-[10]">
         <span className="text-white/15 text-xs font-medium tracking-widest rotate-90 mb-6">SCROLL</span>
         <div className="w-5 h-8 border-2 border-white/15 rounded-full flex justify-center pt-1.5">
-          <div className="w-1 h-2 bg-white/30 rounded-full animate-bounce" />
+          <div className="w-1 h-2 bg-cyan-400/50 rounded-full animate-bounce" />
         </div>
       </div>
     </section>
@@ -413,7 +232,7 @@ function Stats() {
   const refs = [r1, r2, r3, r4];
 
   return (
-    <section className="py-20 bg-[#0a0a0f] border-t border-b border-white/5">
+    <section className="py-20 glass-section">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, i) => (
@@ -444,10 +263,8 @@ function Services() {
       cta: "Get Started",
       href: "/pricing",
       icon: <Gamepad2 className="w-6 h-6" />,
-      color: "from-emerald-500/20 to-emerald-500/5",
-      borderColor: "border-emerald-500/20",
-      iconBg: "bg-emerald-500/10",
       iconColor: "text-emerald-400",
+      iconBg: "bg-emerald-500/10",
     },
     {
       title: "Among Us Hosting",
@@ -458,10 +275,8 @@ function Services() {
       cta: "Start Playing",
       href: "/pricing",
       icon: <Users className="w-6 h-6" />,
-      color: "from-rose-500/20 to-rose-500/5",
-      borderColor: "border-rose-500/20",
-      iconBg: "bg-rose-500/10",
       iconColor: "text-rose-400",
+      iconBg: "bg-rose-500/10",
     },
     {
       title: "Cloud VPS",
@@ -472,10 +287,8 @@ function Services() {
       cta: "Deploy Now",
       href: "/pricing",
       icon: <Cloud className="w-6 h-6" />,
-      color: "from-violet-500/20 to-violet-500/5",
-      borderColor: "border-violet-500/20",
-      iconBg: "bg-violet-500/10",
       iconColor: "text-violet-400",
+      iconBg: "bg-violet-500/10",
     },
     {
       title: "Web Hosting",
@@ -486,10 +299,8 @@ function Services() {
       cta: "Get Started",
       href: "/pricing",
       icon: <Globe2 className="w-6 h-6" />,
-      color: "from-sky-500/20 to-sky-500/5",
-      borderColor: "border-sky-500/20",
-      iconBg: "bg-sky-500/10",
       iconColor: "text-sky-400",
+      iconBg: "bg-sky-500/10",
     },
     {
       title: "Bot Hosting",
@@ -500,15 +311,13 @@ function Services() {
       cta: "Get Started",
       href: "/pricing",
       icon: <Bot className="w-6 h-6" />,
-      color: "from-amber-500/20 to-amber-500/5",
-      borderColor: "border-amber-500/20",
-      iconBg: "bg-amber-500/10",
       iconColor: "text-amber-400",
+      iconBg: "bg-amber-500/10",
     },
   ];
 
   return (
-    <section className="py-28 bg-[#0a0a0f]">
+    <section className="py-28">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16 fade-up">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-cyan-500/10 rounded-full mb-6 border border-cyan-500/20">
@@ -527,14 +336,14 @@ function Services() {
           {services.map((service) => (
             <div
               key={service.title}
-              className={`relative group rounded-2xl border ${service.borderColor} bg-gradient-to-b ${service.color} p-7 hover:shadow-lg hover:shadow-cyan-500/5 transition-all duration-500`}
+              className="glass-card-dark p-7 group"
             >
               {service.popular && (
-                <div className="absolute -top-3 right-6 px-3 py-1 bg-cyan-500 text-black text-xs font-bold rounded-full">
+                <div className="absolute -top-3 right-6 px-3 py-1 bg-gradient-to-r from-cyan-500 to-cyan-600 text-black text-xs font-bold rounded-full shadow-lg shadow-cyan-500/25">
                   POPULAR
                 </div>
               )}
-              <div className={`w-12 h-12 ${service.iconBg} rounded-xl flex items-center justify-center mb-4 ${service.iconColor}`}>
+              <div className={`w-12 h-12 ${service.iconBg} rounded-xl flex items-center justify-center mb-4 ${service.iconColor} group-hover:scale-110 transition-transform duration-300`}>
                 {service.icon}
               </div>
               <h3 className="text-xl font-bold text-white mb-2 font-[family-name:var(--font-heading)]">{service.title}</h3>
@@ -542,7 +351,7 @@ function Services() {
               <p className="text-sm text-white/40 leading-relaxed mb-4">{service.description}</p>
               <div className="flex flex-wrap gap-2 mb-5">
                 {service.tags.map((tag) => (
-                  <span key={tag} className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs text-white/50">
+                  <span key={tag} className="px-3 py-1 bg-white/5 border border-white/8 rounded-lg text-xs text-white/50">
                     {tag}
                   </span>
                 ))}
@@ -583,7 +392,7 @@ function HowItWorks() {
   ];
 
   return (
-    <section className="py-28 bg-[#0d1117]">
+    <section className="py-28 glass-section">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16 fade-up">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-cyan-500/10 rounded-full mb-6 border border-cyan-500/20">
@@ -606,8 +415,8 @@ function HowItWorks() {
                   <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 border-r-2 border-t-2 border-cyan-500/30 rotate-45" />
                 </div>
               )}
-              <div className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-transparent p-8 text-center group-hover:border-cyan-500/30 transition-all duration-500">
-                <div className="w-16 h-16 mx-auto bg-cyan-500/10 border border-cyan-500/20 rounded-2xl flex items-center justify-center text-cyan-400 mb-5">
+              <div className="glass-card-dark p-8 text-center group-hover:border-cyan-500/20 transition-all duration-500">
+                <div className="w-16 h-16 mx-auto bg-cyan-500/10 border border-cyan-500/20 rounded-2xl flex items-center justify-center text-cyan-400 mb-5 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-cyan-500/10 transition-all duration-300">
                   {step.icon}
                 </div>
                 <div className="text-xs text-white/20 font-bold tracking-widest mb-2">STEP {step.num}</div>
@@ -657,7 +466,7 @@ function WhyChoose() {
   ];
 
   return (
-    <section className="py-28 bg-[#0a0a0f]">
+    <section className="py-28">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16 fade-up">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-cyan-500/10 rounded-full mb-6 border border-cyan-500/20">
@@ -674,8 +483,8 @@ function WhyChoose() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
           {reasons.map((r) => (
-            <div key={r.title} className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-transparent p-7 text-center hover:border-cyan-500/30 transition-all duration-500">
-              <div className={`w-14 h-14 mx-auto ${r.bg} rounded-2xl flex items-center justify-center ${r.color} mb-4`}>
+            <div key={r.title} className="glass-card-dark p-7 text-center group hover:border-cyan-500/20 transition-all duration-500">
+              <div className={`w-14 h-14 mx-auto ${r.bg} rounded-2xl flex items-center justify-center ${r.color} mb-4 group-hover:scale-110 transition-transform duration-300`}>
                 {r.icon}
               </div>
               <h3 className="text-lg font-bold text-white mb-3 font-[family-name:var(--font-heading)]">{r.title}</h3>
@@ -699,7 +508,7 @@ function Infrastructure() {
   ];
 
   return (
-    <section className="py-20 bg-[#0d1117] border-t border-b border-white/5">
+    <section className="py-20 glass-section">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-12 fade-up">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-cyan-500/10 rounded-full mb-6 border border-cyan-500/20">
@@ -713,8 +522,8 @@ function Infrastructure() {
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
           {items.map((item) => (
-            <div key={item.title} className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-transparent p-8 text-center hover:border-cyan-500/30 transition-all duration-500">
-              <div className={`w-14 h-14 mx-auto ${item.bg} rounded-2xl flex items-center justify-center ${item.color} mb-4`}>
+            <div key={item.title} className="glass-card-dark p-8 text-center group hover:border-cyan-500/20 transition-all duration-500">
+              <div className={`w-14 h-14 mx-auto ${item.bg} rounded-2xl flex items-center justify-center ${item.color} mb-4 group-hover:scale-110 transition-transform duration-300`}>
                 {item.icon}
               </div>
               <h3 className="text-lg font-bold text-white font-[family-name:var(--font-heading)]">{item.title}</h3>
@@ -747,7 +556,7 @@ function ServerCalculator() {
   };
 
   return (
-    <section className="py-28 bg-[#0a0a0f]">
+    <section className="py-28">
       <div className="max-w-4xl mx-auto px-6">
         <div className="text-center mb-12 fade-up">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-cyan-500/10 rounded-full mb-6 border border-cyan-500/20">
@@ -762,7 +571,7 @@ function ServerCalculator() {
           </p>
         </div>
 
-        <div className="rounded-2xl border border-cyan-500/20 bg-gradient-to-b from-cyan-500/5 to-transparent p-8">
+        <div className="glass-card-dark p-8 border border-cyan-500/15">
           <div className="p-3 bg-cyan-500/10 border border-cyan-500/20 rounded-xl mb-8">
             <p className="text-sm text-cyan-400 text-center">
               Includes OS overhead, JVM memory, and realistic plugin/mod memory usage. Recommendations are generous for smooth gameplay.
@@ -775,7 +584,7 @@ function ServerCalculator() {
               <select
                 value={serverType}
                 onChange={(e) => setServerType(e.target.value)}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-cyan-500/50 transition-colors"
+                className="w-full px-4 py-3 bg-white/5 border border-white/8 rounded-xl text-white text-sm focus:outline-none focus:border-cyan-500/50 transition-colors"
               >
                 <option value="paper">Paper / Spigot</option>
                 <option value="forge">Forge</option>
@@ -789,7 +598,7 @@ function ServerCalculator() {
                 type="number"
                 value={players}
                 onChange={(e) => setPlayers(parseInt(e.target.value) || 0)}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-cyan-500/50 transition-colors"
+                className="w-full px-4 py-3 bg-white/5 border border-white/8 rounded-xl text-white text-sm focus:outline-none focus:border-cyan-500/50 transition-colors"
                 placeholder="e.g. 50"
               />
             </div>
@@ -799,7 +608,7 @@ function ServerCalculator() {
                 type="number"
                 value={plugins}
                 onChange={(e) => setPlugins(parseInt(e.target.value) || 0)}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-cyan-500/50 transition-colors"
+                className="w-full px-4 py-3 bg-white/5 border border-white/8 rounded-xl text-white text-sm focus:outline-none focus:border-cyan-500/50 transition-colors"
                 placeholder="e.g. 10"
               />
             </div>
@@ -808,7 +617,7 @@ function ServerCalculator() {
           <div className="text-center">
             <button
               onClick={calculate}
-              className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-8 py-3 rounded-lg text-sm transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 inline-flex items-center gap-2"
+              className="bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-black font-bold px-8 py-3 rounded-xl text-sm transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 inline-flex items-center gap-2"
             >
               <BarChart3 className="w-4 h-4" /> CALCULATE RESOURCES
             </button>
@@ -816,17 +625,17 @@ function ServerCalculator() {
 
           {result && (
             <div className="mt-8 grid grid-cols-3 gap-4">
-              <div className="p-4 bg-white/5 border border-white/10 rounded-xl text-center">
+              <div className="p-4 bg-white/5 border border-white/8 rounded-xl text-center">
                 <Database className="w-5 h-5 text-cyan-400 mx-auto mb-2" />
                 <div className="text-2xl font-bold text-cyan-400">{result.ram}</div>
                 <div className="text-xs text-white/40 mt-1">RAM</div>
               </div>
-              <div className="p-4 bg-white/5 border border-white/10 rounded-xl text-center">
+              <div className="p-4 bg-white/5 border border-white/8 rounded-xl text-center">
                 <Cpu className="w-5 h-5 text-cyan-400 mx-auto mb-2" />
                 <div className="text-2xl font-bold text-cyan-400">{result.cpu}</div>
                 <div className="text-xs text-white/40 mt-1">CPU</div>
               </div>
-              <div className="p-4 bg-white/5 border border-white/10 rounded-xl text-center">
+              <div className="p-4 bg-white/5 border border-white/8 rounded-xl text-center">
                 <HardDrive className="w-5 h-5 text-cyan-400 mx-auto mb-2" />
                 <div className="text-2xl font-bold text-cyan-400">{result.disk}</div>
                 <div className="text-xs text-white/40 mt-1">Storage</div>
@@ -844,10 +653,10 @@ function ServerCalculator() {
 function PaymentMethods() {
   const UPILogo = () => (
     <svg viewBox="0 0 120 40" className="w-16 h-8" fill="none">
-      <text x="5" y="28" fontFamily="Arial Black, Arial, sans-serif" fontWeight="900" fontSize="22" fill="#00BAF2">UPI</text>
-      <text x="58" y="16" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="6" fill="#999">UNIFIED</text>
-      <text x="58" y="23" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="6" fill="#999">PAYMENTS</text>
-      <text x="58" y="30" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="6" fill="#999">INTERFACE</text>
+      <text x="5" y="28" fontFamily="Arial Black, Arial, sans-serif" fontWeight="900" fontSize="22" fill="#22d3ee">UPI</text>
+      <text x="58" y="16" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="6" fill="#94a3b8">UNIFIED</text>
+      <text x="58" y="23" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="6" fill="#94a3b8">PAYMENTS</text>
+      <text x="58" y="30" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="6" fill="#94a3b8">INTERFACE</text>
     </svg>
   );
 
@@ -855,23 +664,23 @@ function PaymentMethods() {
     <svg viewBox="0 0 120 36" className="w-20 h-8" fill="none">
       <circle cx="16" cy="18" r="14" fill="#5F259F"/>
       <text x="10" y="23" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="14" fill="white">P</text>
-      <text x="34" y="24" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="15" fill="#5F259F">Phone</text>
-      <text x="88" y="24" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="15" fill="#5F259F">Pe</text>
+      <text x="34" y="24" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="15" fill="#a78bfa">Phone</text>
+      <text x="88" y="24" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="15" fill="#a78bfa">Pe</text>
     </svg>
   );
 
   const GPayLogo = () => (
     <svg viewBox="0 0 120 40" className="w-20 h-8" fill="none">
-      <text x="2" y="30" fontFamily="Arial, sans-serif" fontWeight="400" fontSize="18" fill="#5F6368">G</text>
-      <text x="20" y="30" fontFamily="Arial, sans-serif" fontWeight="500" fontSize="18" fill="#5F6368">Pay</text>
+      <text x="2" y="30" fontFamily="Arial, sans-serif" fontWeight="400" fontSize="18" fill="#94a3b8">G</text>
+      <text x="20" y="30" fontFamily="Arial, sans-serif" fontWeight="500" fontSize="18" fill="#94a3b8">Pay</text>
     </svg>
   );
 
   const EsewaLogo = () => (
     <svg viewBox="0 0 120 36" className="w-20 h-8" fill="none">
-      <rect x="0" y="4" width="28" height="28" rx="6" fill="#60BB46"/>
+      <rect x="0" y="4" width="28" height="28" rx="6" fill="#22c55e"/>
       <text x="5" y="24" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="16" fill="white">e</text>
-      <text x="34" y="26" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="17" fill="#60BB46">Sewa</text>
+      <text x="34" y="26" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="17" fill="#4ade80">Sewa</text>
     </svg>
   );
 
@@ -884,16 +693,16 @@ function PaymentMethods() {
   const FonePayLogo = () => (
     <svg viewBox="0 0 130 36" className="w-20 h-8" fill="none">
       <text x="2" y="26" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="16" fill="#E4287C">fone</text>
-      <text x="52" y="26" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="16" fill="#333">pay</text>
+      <text x="52" y="26" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="16" fill="#e2e8f0">pay</text>
     </svg>
   );
 
   const BankLogo = () => (
     <svg viewBox="0 0 120 40" className="w-16 h-8" fill="none">
-      <rect x="35" y="4" width="50" height="32" rx="4" fill="none" stroke="#F59E0B" strokeWidth="1.5"/>
-      <text x="40" y="18" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="7" fill="#F59E0B">NEPAL</text>
-      <text x="40" y="26" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="7" fill="#F59E0B">BANK</text>
-      <text x="40" y="33" fontFamily="Arial, sans-serif" fontWeight="500" fontSize="5" fill="#F59E0B">LIMITED</text>
+      <rect x="35" y="4" width="50" height="32" rx="4" fill="none" stroke="#fbbf24" strokeWidth="1.5"/>
+      <text x="40" y="18" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="7" fill="#fbbf24">NEPAL</text>
+      <text x="40" y="26" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="7" fill="#fbbf24">BANK</text>
+      <text x="40" y="33" fontFamily="Arial, sans-serif" fontWeight="500" fontSize="5" fill="#fbbf24">LIMITED</text>
     </svg>
   );
 
@@ -908,13 +717,13 @@ function PaymentMethods() {
   ];
 
   return (
-    <section className="py-20 bg-[#0d1117] border-t border-b border-white/5">
+    <section className="py-20 glass-section">
       <div className="max-w-7xl mx-auto px-6 text-center">
         <p className="text-xs font-semibold text-white/30 tracking-widest uppercase mb-2">Accepted Payment Methods</p>
         <p className="text-lg text-white/50 mb-10">We accept all Indian &amp; Nepali payment methods</p>
         <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-4">
           {methods.map((m) => (
-            <div key={m.name} className="p-5 rounded-xl border border-white/10 bg-white/5 hover:border-cyan-500/30 transition-all duration-300 flex flex-col items-center justify-center gap-3 min-h-[100px]">
+            <div key={m.name} className="p-5 rounded-xl border border-white/6 bg-white/3 hover:border-cyan-500/20 transition-all duration-300 flex flex-col items-center justify-center gap-3 min-h-[100px] backdrop-blur-sm hover:bg-white/5">
               <div className="flex items-center justify-center h-10">{m.logo}</div>
               <div className="text-[10px] text-white/40 font-semibold tracking-wider uppercase">{m.name}</div>
             </div>
@@ -942,7 +751,7 @@ function FAQ() {
   ];
 
   return (
-    <section className="py-28 bg-[#0a0a0f]">
+    <section className="py-28">
       <div className="max-w-3xl mx-auto px-6">
         <div className="text-center mb-16 fade-up">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-cyan-500/10 rounded-full mb-6 border border-cyan-500/20">
@@ -961,7 +770,7 @@ function FAQ() {
           {faqs.map((faq, i) => (
             <div
               key={i}
-              className="rounded-xl border border-white/10 bg-white/5 cursor-pointer overflow-hidden hover:border-white/15 transition-all duration-300"
+              className="glass-card-dark overflow-hidden cursor-pointer hover:border-cyan-500/15 transition-all duration-300"
               onClick={() => setOpenFaq(openFaq === i ? null : i)}
             >
               <div className="p-6 flex items-center justify-between">
@@ -985,10 +794,10 @@ function FAQ() {
 
 function CTA() {
   return (
-    <section className="py-28 bg-[#0a0a0f] relative overflow-hidden">
+    <section className="py-28 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 via-transparent to-cyan-500/5" />
       <div className="max-w-4xl mx-auto px-6 text-center relative z-10 fade-up">
-        <div className="w-16 h-16 mx-auto bg-cyan-500/10 border border-cyan-500/20 rounded-2xl flex items-center justify-center text-cyan-400 mb-6">
+        <div className="w-16 h-16 mx-auto bg-cyan-500/10 border border-cyan-500/20 rounded-2xl flex items-center justify-center text-cyan-400 mb-6 animate-float-slow">
           <Rocket className="w-8 h-8" />
         </div>
         <h2 className="text-4xl sm:text-5xl font-bold text-white font-[family-name:var(--font-heading)] mb-6">
@@ -998,10 +807,10 @@ function CTA() {
           Deploy your server in seconds and join 200+ happy customers.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
-          <Link href="/register" className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-8 py-4 rounded-lg text-sm transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 hover:-translate-y-0.5 inline-flex items-center gap-2">
+          <Link href="/register" className="bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-black font-bold px-8 py-4 rounded-xl text-sm transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 hover:-translate-y-0.5 inline-flex items-center gap-2">
             GET STARTED NOW <ArrowUpRight className="w-4 h-4" />
           </Link>
-          <Link href="/discord" className="bg-white/5 border border-white/10 hover:border-white/20 text-white font-semibold px-8 py-4 rounded-lg text-sm transition-all duration-300 hover:-translate-y-0.5 inline-flex items-center gap-2">
+          <Link href="/discord" className="bg-white/5 border border-white/10 hover:border-cyan-500/30 text-white font-semibold px-8 py-4 rounded-xl text-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/8 inline-flex items-center gap-2 backdrop-blur-sm">
             <MessageCircle className="w-4 h-4" /> JOIN DISCORD
           </Link>
         </div>
