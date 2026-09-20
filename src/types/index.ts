@@ -46,10 +46,14 @@ export interface Payment {
   userId: string;
   amount: number;
   currency: string;
-  status: "PENDING" | "VERIFIED" | "REJECTED";
+  status: "PENDING" | "VERIFIED" | "FAILED" | "REJECTED" | "EXPIRED";
   proofUrl: string | null;
   txId: string | null;
   adminNote: string | null;
+  decentroTxnId: string | null;
+  paymentLink: string | null;
+  paymentMethod: "MANUAL" | "UPI_DECENTRO";
+  expiresAt: Date | null;
   createdAt: Date;
   verifiedAt: Date | null;
 }

@@ -1,8 +1,13 @@
-import Docker from "dockerode";
+let _docker: any = null;
 
-const docker = new Docker({
-  socketPath: process.env.DOCKER_HOST || "/var/run/docker.sock",
-});
+async function getDocker() {
+  if (_docker) return _docker;
+  const { default: Docker } = await import("dockerode");
+  _docker = new Docker({
+    socketPath: process.env.DOCKER_HOST || "/var/run/docker.sock",
+  });
+  return _docker;
+}
 
 export interface ContainerConfig {
   name: string;
@@ -15,6 +20,7 @@ export interface ContainerConfig {
 }
 
 export async function createServer(config: ContainerConfig): Promise<string> {
+  const docker = await getDocker();
   const memory = config.ram * 1024 * 1024;
   const cpuPeriod = 100000;
   const cpuQuota = (config.cpu / 100) * cpuPeriod;
@@ -46,21 +52,25 @@ export async function createServer(config: ContainerConfig): Promise<string> {
 }
 
 export async function startServer(containerId: string): Promise<void> {
+  const docker = await getDocker();
   const container = docker.getContainer(containerId);
   await container.start();
 }
 
 export async function stopServer(containerId: string): Promise<void> {
+  const docker = await getDocker();
   const container = docker.getContainer(containerId);
   await container.stop({ t: 30 });
 }
 
 export async function restartServer(containerId: string): Promise<void> {
+  const docker = await getDocker();
   const container = docker.getContainer(containerId);
   await container.restart({ t: 30 });
 }
 
 export async function removeServer(containerId: string): Promise<void> {
+  const docker = await getDocker();
   const container = docker.getContainer(containerId);
   try {
     await container.stop({ t: 10 });
@@ -74,6 +84,7 @@ export async function sendCommand(
   containerId: string,
   command: string
 ): Promise<string> {
+  const docker = await getDocker();
   const container = docker.getContainer(containerId);
 
   const exec = await container.exec({
@@ -95,6 +106,7 @@ export async function sendCommand(
 }
 
 export async function getContainerStats(containerId: string) {
+  const docker = await getDocker();
   const container = docker.getContainer(containerId);
 
   try {
@@ -136,6 +148,7 @@ export async function getContainerLogs(
   containerId: string,
   tail = 100
 ): Promise<string[]> {
+  const docker = await getDocker();
   const container = docker.getContainer(containerId);
 
   const logs = await container.logs({
@@ -152,6 +165,7 @@ export async function getContainerStatus(
   containerId: string
 ): Promise<{ running: boolean; status: string }> {
   try {
+    const docker = await getDocker();
     const container = docker.getContainer(containerId);
     const inspect = await container.inspect();
     return {
@@ -164,6 +178,7 @@ export async function getContainerStatus(
 }
 
 export async function pullImage(image: string): Promise<void> {
+  const docker = await getDocker();
   return new Promise((resolve, reject) => {
     docker.pull(
       image,
@@ -182,4 +197,5 @@ export async function pullImage(image: string): Promise<void> {
   });
 }
 
-export default docker;
+export { getDocker };
+export default getDocker;

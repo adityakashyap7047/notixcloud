@@ -89,7 +89,7 @@ const faqs = [
   { q: "Do you support modded servers?", a: "Yes! We support Forge, Fabric, Paper, Spigot, and all major server types. Our one-click modpack installer supports over 100 popular modpacks." },
   { q: "What kind of support do you offer?", a: "We offer 24/7 support via live chat and tickets. Pro and Enterprise plans include priority support with faster response times. Enterprise also includes phone support." },
   { q: "Is there a money-back guarantee?", a: "Yes, we offer a 7-day money-back guarantee on all plans. If you're not satisfied, contact support for a full refund." },
-  { q: "What payment methods do you accept?", a: "We accept UPI, PhonePe, Google Pay, Esewa, Khalti, FonePay, and Bank Transfers. For PayPal, Crypto, and cards, join our Discord server." },
+  { q: "What payment methods do you accept?", a: "We support instant UPI payments via all major apps — GPay, PhonePe, Paytm, and more. Your balance is credited automatically after payment. We also accept manual bank transfers for larger amounts." },
 ];
 
 export default function PricingPage() {

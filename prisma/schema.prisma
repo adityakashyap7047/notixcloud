@@ -64,16 +64,20 @@ model Server {
 }
 
 model Payment {
-  id         String   @id @default(cuid())
-  userId     String
-  amount     Float
-  currency   String   @default("INR")
-  status     String   @default("PENDING")
-  proofUrl   String?
-  txId       String?
-  adminNote  String?
-  createdAt  DateTime @default(now())
-  verifiedAt DateTime?
+  id              String    @id @default(cuid())
+  userId          String
+  amount          Float
+  currency        String    @default("INR")
+  status          String    @default("PENDING")
+  proofUrl        String?
+  txId            String?
+  adminNote       String?
+  decentroTxnId   String?   @unique
+  paymentLink     String?   @db.Text
+  paymentMethod   String    @default("MANUAL")
+  expiresAt       DateTime?
+  createdAt       DateTime  @default(now())
+  verifiedAt      DateTime?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

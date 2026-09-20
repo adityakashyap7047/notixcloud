@@ -112,8 +112,8 @@ function Hero() {
         />
       ))}
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-24">
-        <div className="max-w-4xl">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-16 flex flex-col items-center justify-center min-h-screen text-center">
+        <div className="max-w-3xl mx-auto">
           <div
             className="inline-flex items-center gap-2.5 px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/8 rounded-full mb-8"
             style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both" }}
@@ -133,21 +133,21 @@ function Hero() {
             <span className="gradient-text hero-underline">COME FIRST</span>
           </h1>
 
-          <div className="flex items-center gap-2 mb-6" style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both" }}>
+          <div className="flex items-center justify-center gap-2 mb-6" style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both" }}>
             <span className="text-cyan-400 text-lg font-semibold">&gt;</span>
             <span className="text-white/60 text-lg">High Performance VPS Hosting</span>
             <span className="w-0.5 h-5 bg-cyan-400 animate-pulse" />
           </div>
 
           <p
-            className="text-base text-white/35 max-w-xl mb-10 leading-relaxed"
+            className="text-base text-white/35 max-w-xl mx-auto mb-10 leading-relaxed"
             style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both" }}
           >
             Experience the raw power of dedicated Ryzen infrastructure. Optimized for Minecraft, Discord Bots, Web, and VPS. No lag. No excuses.
           </p>
 
           <div
-            className="flex flex-wrap gap-4 mb-8"
+            className="flex flex-wrap justify-center gap-4 mb-8"
             style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both" }}
           >
             <Link href="/register" className="bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-black font-bold px-8 py-4 rounded-xl text-sm transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 hover:-translate-y-0.5 inline-flex items-center gap-2">
@@ -159,7 +159,7 @@ function Hero() {
           </div>
 
           <div
-            className="flex flex-wrap gap-4 mb-12"
+            className="flex flex-wrap justify-center gap-4 mb-10"
             style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both" }}
           >
             {[
@@ -178,7 +178,7 @@ function Hero() {
           {/* Quick Deploy section */}
           <div style={{ animation: "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both" }}>
             <p className="text-[10px] text-white/25 font-bold tracking-[0.2em] uppercase mb-3">Quick Deploy</p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap justify-center gap-3">
               {[
                 { title: "Minecraft", subtitle: "Instant Setup", icon: <Gamepad2 className="w-4 h-4 text-cyan-400" />, href: "/pricing" },
                 { title: "Among Us", subtitle: "Custom Maps", icon: <Users className="w-4 h-4 text-cyan-400" />, href: "/pricing" },
@@ -193,7 +193,7 @@ function Hero() {
                   <div className="w-8 h-8 bg-cyan-500/10 rounded-lg flex items-center justify-center group-hover:bg-cyan-500/15 transition-colors">
                     {item.icon}
                   </div>
-                  <div>
+                  <div className="text-left">
                     <div className="text-sm font-semibold text-white">{item.title}</div>
                     <div className="text-[10px] text-white/40">{item.subtitle}</div>
                   </div>

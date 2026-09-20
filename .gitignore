@@ -47,3 +47,8 @@ dev.log
 
 # minecraft server data
 mc-data/
+
+# Cloudflare
+.open-next/
+.wrangler/
+.dev.vars
